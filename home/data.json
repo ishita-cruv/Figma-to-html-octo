@@ -3,14 +3,10 @@
   "header": {
     "logo": {
       "icon": "../assets/Ellipse 511.png",
-      "name": "iHeart",
-      "suffix": "RADIO"
+      "textImage": "../assets/iheartradio-text.png",
+      "name": "iHeartRADIO"
     },
-    "title": {
-      "bold1": "IDEAS",
-      "subtle": "WORTH",
-      "bold2": "SPREADING"
-    },
+    "titleImage": "../assets/ideas-worth-spreading.png",
     "search": {
       "icon": "../assets/Icons - Line.png",
       "placeholder": "Search..."

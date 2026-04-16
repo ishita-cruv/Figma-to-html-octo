@@ -3,17 +3,19 @@ function renderHeader(data) {
     const header = document.getElementById('header');
     header.innerHTML = `
         <div class="header-left">
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <div class="logo">
-                <div class="logo-icon">
-                    <img src="${data.logo.icon}" alt="${data.logo.name} logo">
-                </div>
-                <span>${data.logo.name}<span style="font-weight: 400; color: #999;">${data.logo.suffix}</span></span>
+                <img class="logo-text" src="${data.logo.textImage}" alt="${data.logo.name}">
             </div>
         </div>
         <div class="header-center">
-            <div class="header-title">
-                <span style="font-weight: 700;">${data.title.bold1}</span><span class="subtle">${data.title.subtle}</span><span style="font-weight: 700;">${data.title.bold2}</span>
-            </div>
+            <img class="header-title-image" src="${data.titleImage}" alt="Ideas Worth Spreading">
         </div>
         <div class="header-right">
             <div class="search-container">
@@ -294,6 +296,26 @@ function renderArticleContent(data) {
     container.innerHTML = breadcrumb + sectionsHtml;
 }
 
+function setupMobileMenu() {
+    const btn = document.getElementById('hamburger-btn');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!btn || !sidebar) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = sidebar.classList.toggle('open');
+        if (backdrop) backdrop.classList.toggle('visible', isOpen);
+    });
+
+    if (backdrop) {
+        backdrop.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('visible');
+        });
+    }
+}
+
 // Sidebar toggle handling (kept dynamic)
 function setupSidebarToggle() {
     const sidebar = document.getElementById('sidebar');
@@ -322,6 +344,7 @@ async function renderPage() {
         renderSidebar(data.sidebar);
         renderArticleContent(data);
         setupSidebarToggle();
+        setupMobileMenu();
     } catch (err) {
         console.error('Error loading article data:', err);
     }

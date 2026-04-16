@@ -28,18 +28,20 @@ function renderHeader(data) {
     const header = document.getElementById('header');
     const logoHtml = `
         <div class="header-left">
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <div class="logo">
-                <div class="logo-icon">
-                    <img src="${data.logo.icon}" alt="${data.logo.name} logo">
-                </div>
-                <span>${data.logo.name}<span style="font-weight: 400; color: #999;">${data.logo.suffix}</span></span>
+                <img class="logo-text" src="${data.logo.textImage}" alt="${data.logo.name}">
             </div>
         </div>
 
         <div class="header-center">
-            <div class="header-title">
-                <span style="font-weight: 700;">${data.title.bold1}</span><span class="subtle">${data.title.subtle}</span><span style="font-weight: 700;">${data.title.bold2}</span>
-            </div>
+            <img class="header-title-image" src="${data.titleImage}" alt="Ideas Worth Spreading">
         </div>
 
         <div class="header-right">
@@ -234,9 +236,9 @@ function renderPromptVideo(data) {
     `).join('');
 
     return `
-        <section class="content-section" style="height: 733.11px;">
-            <div style="display: flex; gap: 20px; padding: 24px; height: 100%;">
-                <div style="flex: 73; min-width: 0; display: flex; flex-direction: column;">
+        <section class="content-section promptvideo-section" style="height: 733.11px;">
+            <div class="promptvideo-grid" style="display: flex; gap: 20px; padding: 24px; height: 100%;">
+                <div class="promptvideo-col" style="flex: 73; min-width: 0; display: flex; flex-direction: column;">
                     <div style="position: relative; flex: 1; margin-bottom: 140px;">
                         <div style="width: 100%; height: 100%; background-color: #e5e5e5; border: 2px solid #d0d0d0; border-radius: 8px; overflow: hidden;">
                             <a id="promptvideo-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
@@ -259,7 +261,7 @@ function renderPromptVideo(data) {
                         </button>
                     </div>
                 </div>
-                <div style="flex: 39; min-width: 0; display: flex; flex-direction: column; height: 100%;">
+                <div class="promptvideo-col" style="flex: 39; min-width: 0; display: flex; flex-direction: column; height: 100%;">
                     <div style="background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
                     </div>
                 </div>
@@ -387,10 +389,10 @@ function renderLastSection(data) {
 
     return `
         <section class="content-section">
-            <div style="display: flex; gap: 24px; padding: 24px;">
+            <div class="lastsection-grid" style="display: flex; gap: 24px; padding: 24px;">
                 <!-- Left Column: Large Article -->
-                <div style="flex: 1; display: flex; flex-direction: column;">
-                    <div style="position: relative; flex: 1; margin-bottom: 60px;">
+                <div class="lastsection-col" style="flex: 1; display: flex; flex-direction: column;">
+                    <div style="position: relative; flex: 1; margin-bottom: 60px; min-height: 240px;">
                         <div style="width: 100%; height: 100%; background-color: #2c2c2c; border-radius: 8px; overflow: hidden;">
                             <a id="lastsection-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
                                 <img id="lastsection-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
@@ -414,7 +416,7 @@ function renderLastSection(data) {
                 </div>
 
                 <!-- Middle Column: Article Cards -->
-                <div style="flex: 1;">
+                <div class="lastsection-col" style="flex: 1;">
                     <div style="font-size: 10px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">${data.middleColumn.header}</div>
                     ${data.middleColumn.articles.map((article, idx) => {
                         const isLast = idx === data.middleColumn.articles.length - 1;
@@ -437,7 +439,7 @@ function renderLastSection(data) {
                 </div>
 
                 <!-- Right Column: Featured -->
-                <div style="flex: 1;">
+                <div class="lastsection-col" style="flex: 1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${data.featured.title}</h3>
                         <a href="${data.featured.seeAllLink || '#'}" target="_blank" rel="noopener noreferrer" style="color: #0645ff; font-size: 12px; text-decoration: none;">${data.featured.seeAll}</a>
@@ -481,6 +483,7 @@ async function renderPage() {
 
         renderHeader(data.header);
         renderSidebar(data.sidebar);
+        setupMobileMenu();
 
         const content = document.getElementById('content');
         content.innerHTML = `
@@ -525,6 +528,26 @@ function setupLastSectionCarousel(items) {
     dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => updateItem(idx));
     });
+}
+
+function setupMobileMenu() {
+    const btn = document.getElementById('hamburger-btn');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!btn || !sidebar) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = sidebar.classList.toggle('open');
+        if (backdrop) backdrop.classList.toggle('visible', isOpen);
+    });
+
+    if (backdrop) {
+        backdrop.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('visible');
+        });
+    }
 }
 
 // Initialize on page load
