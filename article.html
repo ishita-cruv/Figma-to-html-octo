@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iHeartVIP - article</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-shrink: 0;
+            gap: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 0 0 auto;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            color: #1a1a1a;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0px;
+            white-space: nowrap;
+            color: #1a1a1a;
+            height: 31px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title .subtle {
+            font-weight: 400;
+            color: #666;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            padding: 8px 14px;
+            gap: 8px;
+            min-width: 200px;
+        }
+
+        .search-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .search-container input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 13px;
+            outline: none;
+            color: #1a1a1a;
+        }
+
+        .search-container input::placeholder {
+            color: #999;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            border: 1px solid #d0d0d0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f8f8f8;
+            border-color: #999;
+        }
+
+        .btn-primary {
+            background-color: #C6002B;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #A00020;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Main Article Container */
+        .main-content {
+            display: flex;
+            width: 100%;
+            margin: 0;
+        }
+
+        /* Sidebar - Collapsed State (default) */
+        .sidebar {
+            width: 48px;
+            background-color: #ffffff;
+            border-right: 1px solid #e5e5e5;
+            padding: 8px 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            height: fit-content;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar {
+            cursor: pointer;
+        }
+
+        .sidebar-item {
+            padding: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #1a1a1a;
+            transition: background-color 0.2s;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+
+        .sidebar-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar-item-icon {
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #666;
+        }
+
+        .sidebar-item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-item span {
+            display: none;
+        }
+
+        .community-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .community-avatar:hover {
+            background-color: #d0d0d0;
+        }
+
+        .community-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #e5e5e5;
+            margin: 4px 0;
+        }
+
+        .sidebar-section-expanded,
+        .sidebar-label,
+        .creator-banner,
+        .category-item,
+        .community-item {
+            display: none;
+        }
+
+        /* Sidebar - Expanded State */
+        .sidebar.expanded {
+            width: 240px;
+            padding: 3px 0;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        .sidebar.expanded .sidebar-item {
+            padding: 4px 10px;
+            gap: 6px;
+            width: 100%;
+            height: auto;
+            justify-content: flex-start;
+            border-radius: 0;
+        }
+
+        .sidebar.expanded .sidebar-item span {
+            display: inline;
+            font-size: 10px;
+        }
+
+        .sidebar.expanded .sidebar-divider {
+            display: none;
+        }
+
+        .sidebar.expanded .sidebar-section-expanded {
+            display: block;
+            padding: 0;
+            margin-bottom: 4px;
+        }
+
+        .sidebar.expanded .sidebar-label {
+            padding: 3px 10px;
+            font-size: 8px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-label-chevron {
+            width: 16px;
+            height: 16px;
+            color: #ccc;
+        }
+
+        .sidebar.expanded .creator-banner {
+            background-color: #C6002B;
+            color: white;
+            margin: 6px;
+            padding: 8px 6px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .sidebar.expanded .creator-banner:hover {
+            background-color: #A00020;
+        }
+
+        .sidebar.expanded .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 10px;
+            font-size: 10px;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar.expanded .category-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .category-chevron {
+            width: 12px;
+            height: 12px;
+            color: #ccc;
+        }
+
+        .sidebar.expanded .community-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            font-size: 10px;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar.expanded .community-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar.expanded .community-item .community-avatar {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Hide collapsed-only items when expanded */
+        .sidebar.expanded .collapsed-only {
+            display: none !important;
+        }
+
+        /* Article Content */
+        .article-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: calc(100vh - 60px);
+        }
+
+        .article-wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 40px 32px;
+        }
+
+        /* Article Header */
+        .article-header {
+            margin-bottom: 32px;
+        }
+
+        .article-category {
+            font-size: 11px;
+            font-weight: 700;
+            color: #C6002B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .article-title {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background-color: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .author-handle {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .article-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #e5e5e5;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+            color: #666;
+        }
+
+        .action-btn:hover {
+            background-color: #f5f5f5;
+            color: #C6002B;
+        }
+
+        .action-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Featured Image */
+        .article-featured-image {
+            width: 100%;
+            aspect-ratio: 900 / 674;
+            height: auto;
+            background-color: #e5e5e5;
+            border-radius: 8px;
+            margin-bottom: 0;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Video Seeker */
+        .video-seeker {
+            width: 47%;
+            height: 3px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 1.5px;
+            cursor: pointer;
+            overflow: hidden;
+            position: absolute;
+            bottom: 32px;
+            left: 0;
+            margin-bottom: 0;
+        }
+
+        .seeker-progress {
+            width: 35%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 1.5px;
+            transition: width 0.1s ease;
+        }
+
+        /* Article Section with Starbucks */
+        .article-section {
+            width: 100%;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .section-content {
+            display: flex;
+            gap: 16px;
+        }
+
+        .section-text {
+            flex: 1;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            font-family: Georgia, 'Iowan Old Style', 'Charter', 'Times New Roman', serif;
+        }
+
+        .faded-text {
+            background: linear-gradient(to bottom, #1a1a1a 0%, #b0b0b0 60%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .section-sidebar {
+            flex-shrink: 0;
+            width: 280px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-date {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .section-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #1a1a1a;
+            cursor: pointer;
+            text-decoration: none;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .section-action-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: left;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        .brand-info {
+            flex: 1;
+        }
+
+        .brand-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .brand-sponsored {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .brand-question {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .brand-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .brand-option {
+            padding: 10px 12px;
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .brand-option:hover {
+            background-color: #f5f5f5;
+            border-color: #999;
+        }
+
+        .section-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 12px;
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #d0d0d0;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background-color: #1a1a1a;
+        }
+
+        .nav-arrow {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #e5e5e5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .nav-arrow:hover {
+            border-color: #999;
+        }
+
+        .nav-arrow svg {
+            width: 16px;
+            height: 16px;
+            color: #666;
+        }
+
+        /* Article Body */
+        .article-body {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            color: #333;
+        }
+
+        .article-body p {
+            margin-bottom: 16px;
+        }
+
+        .article-body h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+        }
+
+        .article-body h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 24px 0 12px;
+        }
+
+        .article-body strong {
+            font-weight: 600;
+        }
+
+        .article-body em {
+            font-style: italic;
+            color: #666;
+        }
+
+        .article-body a {
+            color: #0645ff;
+            text-decoration: none;
+            border-bottom: 1px solid #0645ff;
+        }
+
+        .article-body a:hover {
+            color: #0535d9;
+        }
+
+        .article-body blockquote {
+            border-left: 4px solid #C6002B;
+            padding-left: 16px;
+            margin: 20px 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            margin: 16px 0 16px 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 8px;
+        }
+
+        /* Article Interactions */
+        .article-footer {
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 24px 0;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .share-btn:hover {
+            background-color: #f5f5f5;
+            border-color: #0645ff;
+            color: #0645ff;
+        }
+
+        .share-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Related Articles */
+        .related-section {
+            margin-bottom: 40px;
+        }
+
+        .related-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .related-articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .related-card {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 120px;
+            background-color: #ddd;
+        }
+
+        .related-content {
+            padding: 12px;
+        }
+
+        .related-category {
+            font-size: 10px;
+            font-weight: 700;
+            color: #C6002B;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .related-title-text {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .related-meta {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .comments-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .comment-input {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .comment-input-wrapper {
+            flex: 1;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .comment-textarea:focus {
+            outline: none;
+            border-color: #0645ff;
+            box-shadow: 0 0 0 2px rgba(6, 69, 255, 0.1);
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment {
+            display: flex;
+            gap: 12px;
+        }
+
+        .comment-author-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .comment-body {
+            flex: 1;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .comment-author-name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .comment-timestamp {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-text {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .comment-actions-small {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .comment-action-link {
+            color: #0645ff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .comment-action-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Scrollbar - Hidden */
+        .article-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .article-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .header-left {
+                width: 100%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .search-container {
+                max-width: none;
+            }
+
+            .article-title {
+                font-size: 24px;
+            }
+
+            .article-wrapper {
+                padding: 20px 16px;
+            }
+
+            .related-articles {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="Ellipse 511.png" alt="iHeart logo">
+                    </div>
+                    <span>iHeart<span style="font-weight: 400; color: #999;">RADIO</span></span>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <div class="header-title">
+                    <span style="font-weight: 700;">IDEAS</span><span class="subtle">WORTH</span><span style="font-weight: 700;">SPREADING</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="search-container">
+                    <div class="search-icon">
+                        <img src="Icons - Line.png" alt="Search">
+                    </div>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="btn btn-secondary">Get app</button>
+                <button class="btn btn-primary">Log in</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar (Collapsible) -->
+            <aside class="sidebar" id="sidebar" onclick="expandSidebar()">
+                <!-- Navigation Section -->
+                <div class="sidebar-section-expanded">
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Ellipse 511.png" alt="iHeart">
+                        </div>
+                        <span>{iHeart}</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon.png" alt="Home">
+                        </div>
+                        <span>Home</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (1).png" alt="Popular">
+                        </div>
+                        <span>Popular</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (2).png" alt="Latest">
+                        </div>
+                        <span>Latest</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (3).png" alt="Explore">
+                        </div>
+                        <span>Explore</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 100%; height: 100%;">
+                                <circle cx="12" cy="5" r="2"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <circle cx="12" cy="19" r="2"></circle>
+                            </svg>
+                        </div>
+                        <span>More</span>
+                    </div>
+                </div>
+
+                <!-- Collapsed view items (only visible when collapsed) -->
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Ellipse 511.png" alt="iHeart">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon.png" alt="Home">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (1).png" alt="Popular">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (2).png" alt="Latest">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (3).png" alt="Explore">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 100%; height: 100%;">
+                            <circle cx="12" cy="5" r="2"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <circle cx="12" cy="19" r="2"></circle>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Divider (collapsed only) -->
+                <div class="sidebar-divider collapsed-only"></div>
+
+                <!-- User Section (expanded) -->
+                <div class="sidebar-section-expanded">
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (4).png" alt="Log in">
+                        </div>
+                        <span>Log in</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (5).png" alt="Get app">
+                        </div>
+                        <span>Get app</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="sidebar-item-icon">
+                            <img src="Icon (6).png" alt="Claim Brand Profile">
+                        </div>
+                        <span>Claim Brand Profile</span>
+                    </div>
+                </div>
+
+                <!-- User Items (collapsed only) -->
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (4).png" alt="Log in">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (5).png" alt="Get app">
+                    </div>
+                </div>
+                <div class="sidebar-item collapsed-only">
+                    <div class="sidebar-item-icon">
+                        <img src="Icon (6).png" alt="Claim Brand Profile">
+                    </div>
+                </div>
+
+                <!-- Creator Banner (expanded only) -->
+                <div class="creator-banner">
+                    Become a Creator for iHeart, get rewards 🚀
+                </div>
+
+                <!-- Categories Section (expanded only) -->
+                <div class="sidebar-label">
+                    Categories
+                    <svg class="sidebar-label-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="sidebar-section-expanded">
+                    <div class="category-item">
+                        <span>Creativity</span>
+                        <svg class="category-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="category-item">
+                        <span>Business</span>
+                        <svg class="category-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="category-item">
+                        <span>Health & Wellness</span>
+                        <svg class="category-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="category-item">
+                        <span>Books</span>
+                        <svg class="category-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="category-item">
+                        <span>Finance</span>
+                        <svg class="category-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Recent Section (expanded only) -->
+                <div class="sidebar-label">
+                    Recent
+                    <svg class="sidebar-label-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="sidebar-section-expanded">
+                    <div class="community-item">
+                        <div class="community-avatar">
+                            <img src="Image 1.png" alt="TED Talent Hub">
+                        </div>
+                        <span>TED Talent Hub</span>
+                    </div>
+                    <div class="community-item">
+                        <div class="community-avatar">
+                            <img src="Images.png" alt="Community">
+                        </div>
+                        <span>[Community]</span>
+                    </div>
+                    <div class="community-item">
+                        <div class="community-avatar">
+                            <img src="Image 1.png" alt="Community">
+                        </div>
+                        <span>[Community]</span>
+                    </div>
+                    <div class="community-item">
+                        <div class="community-avatar">
+                            <img src="Images.png" alt="Community">
+                        </div>
+                        <span>[Community]</span>
+                    </div>
+                </div>
+
+                <!-- Community Avatars (collapsed only) -->
+                <div class="community-avatar collapsed-only">
+                    <img src="Image 1.png" alt="Community">
+                </div>
+                <div class="community-avatar collapsed-only">
+                    <img src="Images.png" alt="Community">
+                </div>
+                <div class="community-avatar collapsed-only">
+                    <img src="Image 1.png" alt="Community">
+                </div>
+                <div class="community-avatar collapsed-only">
+                    <img src="Images.png" alt="Community">
+                </div>
+                <div class="community-avatar collapsed-only">
+                    <img src="Image 1.png" alt="Community">
+                </div>
+            </aside>
+
+            <!-- Article Container -->
+            <article class="article-container">
+                <div class="article-wrapper">
+                    <!-- Article Header -->
+                    <header class="article-header">
+                        <div class="article-category">Technology</div>
+                        <h1 class="article-title">The Future of Artificial Intelligence: What We Need to Know About the Latest Breakthroughs</h1>
+
+                    </header>
+
+                    <!-- Featured Image with Seeker -->
+                    <div style="display: flex; gap: 16px; margin-bottom: 32px;">
+                        <div style="flex: 900; min-width: 0; position: relative;">
+                            <img src="article-race-car.png" alt="Article featured image" class="article-featured-image">
+                            <!-- Video Seeker -->
+                            <div class="video-seeker">
+                                <div class="seeker-progress"></div>
+                            </div>
+                        </div>
+                        <!-- Empty Div -->
+                        <div style="flex: 392; min-width: 0; aspect-ratio: 392 / 640; border: 1px solid #d0d0d0; border-radius: 8px; position: relative;">
+                            <img src="Input.png" alt="Octo icon" style="position: absolute; top: 50%; right: 16px; transform: translateY(-50%); z-index: 10;">
+                        </div>
+                    </div>
+
+                    <!-- Article Section with Starbucks -->
+                    <div class="article-section">
+                        <div class="section-content">
+                            <div style="flex: 1;">
+                                <div class="section-header">
+                                    <div class="section-date">Mar 12, 2026, 2:02 PM ET</div>
+                                    <div class="section-actions">
+                                        <a class="section-action">
+                                            <span class="section-action-icon">
+                                                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M14.854 4.854a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 4H3.5A2.5 2.5 0 0 0 1 6.5v8a.5.5 0 0 0 1 0v-8A1.5 1.5 0 0 1 3.5 5h9.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4z"/>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                        <a class="section-action">
+                                            <span class="section-action-icon">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M15.75 5H8.25C7.55964 5 7 5.58763 7 6.3125V19L12 15.5L17 19V6.3125C17 5.58763 16.4404 5 15.75 5Z"></path>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="section-text">
+                                    On a recent weekend, I was playing with my new puppy when my phone rang. On the other end was the CEO of a major public software company with a warning: the industry was headed for painful financial reset.
+                                </div>
+                            </div>
+
+                            <div class="section-sidebar">
+                                <div class="brand-card">
+                                    <div class="brand-header">
+                                        <div class="brand-icon">
+                                            <img src="Thumbnail.png" alt="Starbucks">
+                                        </div>
+                                        <div class="brand-info">
+                                            <div class="brand-name">Starbucks</div>
+                                            <div class="brand-sponsored">Sponsored</div>
+                                        </div>
+                                    </div>
+                                    <p class="brand-question">What brand would you prefer for your morning coffee?</p>
+                                    <div class="brand-options">
+                                        <div class="brand-option">Starbucks</div>
+                                        <div class="brand-option">Dunkin</div>
+                                        <div class="brand-option">Grumpy</div>
+                                    </div>
+                                </div>
+
+                                <div class="section-footer">
+                                    <button class="nav-arrow">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="15 18 9 12 15 6"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="nav-dot active"></div>
+                                    <div class="nav-dot"></div>
+                                    <div class="nav-dot"></div>
+                                    <button class="nav-arrow">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty Div Wrapper -->
+                    <div style="width: 100%; aspect-ratio: 900 / 282; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>
+
+                    <!-- Continued Article Section with Starbucks Menu -->
+                    <div class="article-section">
+                        <div class="section-content">
+                            <div style="flex: 1;">
+                                <div class="section-text">
+                                    <p style="margin-bottom: 16px;">The software industry has entered a period of significant transformation. Companies that once prided themselves on rapid expansion are now facing tough decisions about sustainability, profitability, and long-term growth strategies.</p>
+                                    <p class="faded-text">What started as whispers in private meetings has become a growing chorus of concern across Silicon Valley boardrooms. The question is no longer whether change is coming, but how quickly organizations can adapt to the new economic realities.</p>
+                                </div>
+                            </div>
+
+                            <div class="section-sidebar">
+                                <div class="brand-card">
+                                    <div class="brand-header">
+                                        <div class="brand-icon">
+                                            <img src="Thumbnail.png" alt="Starbucks">
+                                        </div>
+                                        <div class="brand-info">
+                                            <div class="brand-name">Starbucks</div>
+                                            <div class="brand-sponsored">Sponsored</div>
+                                        </div>
+                                    </div>
+                                    <p class="brand-question">Choose your favorite Starbucks menu item</p>
+                                    <div class="brand-options">
+                                        <div class="brand-option">Caramel Macchiato</div>
+                                        <div class="brand-option">Pumpkin Spice Latte</div>
+                                        <div class="brand-option">Iced Americano</div>
+                                    </div>
+                                </div>
+
+                                <div class="section-footer">
+                                    <button class="nav-arrow">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="15 18 9 12 15 6"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="nav-dot active"></div>
+                                    <div class="nav-dot"></div>
+                                    <div class="nav-dot"></div>
+                                    <button class="nav-arrow">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        // Load page title from article-data.json
+        fetch('article-data.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data.pageTitle) {
+                    document.title = data.pageTitle;
+                }
+            })
+            .catch(error => console.error('Error loading article data:', error));
+
+        function expandSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.add('expanded');
+        }
+
+        // Collapse sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar && !sidebar.contains(event.target) && sidebar.classList.contains('expanded')) {
+                sidebar.classList.remove('expanded');
+            }
+        });
+    </script>
+</body>
+</html>

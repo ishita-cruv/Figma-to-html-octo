@@ -1,0 +1,125 @@
+{
+  "pageTitle": "iHeartVIP - article",
+  "header": {
+    "logo": {
+      "icon": "Ellipse 511.png",
+      "name": "iHeart",
+      "suffix": "RADIO"
+    },
+    "title": {
+      "bold1": "IDEAS",
+      "subtle": "WORTH",
+      "bold2": "SPREADING"
+    },
+    "search": {
+      "icon": "Icons - Line.png",
+      "placeholder": "Search..."
+    },
+    "buttons": [
+      { "text": "Get app", "type": "secondary" },
+      { "text": "Log in", "type": "primary" }
+    ]
+  },
+  "sidebar": {
+    "navigation": [
+      { "icon": "Ellipse 511.png", "label": "{iHeart}", "type": "image" },
+      { "icon": "Icon.png", "label": "Home", "type": "image" },
+      { "icon": "Icon (1).png", "label": "Popular", "type": "image" },
+      { "icon": "Icon (2).png", "label": "Latest", "type": "image" },
+      { "icon": "Icon (3).png", "label": "Explore", "type": "image" },
+      { "icon": "more-dots", "label": "More", "type": "svg" }
+    ],
+    "user": [
+      { "icon": "Icon (4).png", "label": "Log in" },
+      { "icon": "Icon (5).png", "label": "Get app" },
+      { "icon": "Icon (6).png", "label": "Claim Brand Profile" }
+    ],
+    "creatorBanner": "Become a Creator for iHeart, get rewards 🚀",
+    "categories": [
+      "Creativity",
+      "Business",
+      "Health & Wellness",
+      "Books",
+      "Finance"
+    ],
+    "seeMore": "See more",
+    "recent": [
+      { "avatar": "Image 1.png", "label": "TED Talent Hub" },
+      { "avatar": "Images.png", "label": "[Community]" },
+      { "avatar": "Image 1.png", "label": "[Community]" },
+      { "avatar": "Images.png", "label": "[Community]" }
+    ]
+  },
+  "article": {
+    "category": "Technology",
+    "title": "The Future of Artificial Intelligence: What We Need to Know About the Latest Breakthroughs",
+    "featuredImage": "article-race-car.png",
+    "videoSeeker": {
+      "progress": 35
+    },
+    "sidePanel": {
+      "icon": "Input.png"
+    }
+  },
+  "sections": [
+    {
+      "type": "article-section",
+      "date": "Mar 12, 2026, 2:02 PM ET",
+      "actions": [
+        {
+          "type": "share",
+          "icon": "arrow-90deg-right"
+        },
+        {
+          "type": "save",
+          "icon": "bookmark"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "On a recent weekend, I was playing with my new puppy when my phone rang. On the other end was the CEO of a major public software company with a warning: the industry was headed for painful financial reset.",
+          "faded": false
+        }
+      ],
+      "brandCard": {
+        "icon": "Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "What brand would you prefer for your morning coffee?",
+        "options": ["Starbucks", "Dunkin", "Grumpy"]
+      },
+      "navigation": {
+        "dots": 3,
+        "active": 0
+      }
+    },
+    {
+      "type": "empty-wrapper",
+      "aspectRatio": "900 / 282"
+    },
+    {
+      "type": "article-section",
+      "paragraphs": [
+        {
+          "text": "The software industry has entered a period of significant transformation. Companies that once prided themselves on rapid expansion are now facing tough decisions about sustainability, profitability, and long-term growth strategies.",
+          "faded": false
+        },
+        {
+          "text": "What started as whispers in private meetings has become a growing chorus of concern across Silicon Valley boardrooms. The question is no longer whether change is coming, but how quickly organizations can adapt to the new economic realities.",
+          "faded": true
+        }
+      ],
+      "brandCard": {
+        "icon": "Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "Choose your favorite Starbucks menu item",
+        "options": ["Caramel Macchiato", "Pumpkin Spice Latte", "Iced Americano"]
+      },
+      "navigation": {
+        "dots": 3,
+        "active": 0
+      }
+    }
+  ]
+}

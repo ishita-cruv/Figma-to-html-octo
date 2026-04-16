@@ -1,0 +1,202 @@
+{
+  "pageTitle": "iHeartVIP - Home",
+  "header": {
+    "logo": {
+      "icon": "Ellipse 511.png",
+      "name": "iHeart",
+      "suffix": "RADIO"
+    },
+    "title": {
+      "bold1": "IDEAS",
+      "subtle": "WORTH",
+      "bold2": "SPREADING"
+    },
+    "search": {
+      "icon": "Icons - Line.png",
+      "placeholder": "Search..."
+    },
+    "buttons": [
+      { "text": "Get app", "type": "secondary" },
+      { "text": "Log in", "type": "primary" }
+    ]
+  },
+  "sidebar": {
+    "navigation": [
+      { "icon": "Ellipse 511.png", "label": "{iHeart}", "type": "image" },
+      { "icon": "Icon.png", "label": "Home", "type": "image" },
+      { "icon": "Icon (1).png", "label": "Popular", "type": "image" },
+      { "icon": "Icon (2).png", "label": "Latest", "type": "image" },
+      { "icon": "Icon (3).png", "label": "Explore", "type": "image" },
+      { "icon": "more-dots", "label": "More", "type": "svg" }
+    ],
+    "user": [
+      { "icon": "Icon (4).png", "label": "Log in" },
+      { "icon": "Icon (5).png", "label": "Get app" },
+      { "icon": "Icon (6).png", "label": "Claim Brand Profile" }
+    ],
+    "creatorBanner": "Become a Creator for iHeart, get rewards 🚀",
+    "categories": [
+      "Creativity",
+      "Business",
+      "Health & Wellness",
+      "Books",
+      "Finance"
+    ],
+    "seeMore": "See more",
+    "recent": [
+      { "avatar": "Image 1.png", "label": "TED Talent Hub" },
+      { "avatar": "Images.png", "label": "[Community]" },
+      { "avatar": "Image 1.png", "label": "[Community]" },
+      { "avatar": "Images.png", "label": "[Community]" }
+    ]
+  },
+  "greeting": {
+    "text": "Good Afternoon",
+    "badge": "Your Briefing"
+  },
+  "exclusive": {
+    "badge": "EXCLUSIVE",
+    "articles": [
+      {
+        "title": "Adam Levine Makes Decision About Returning To 'The Voice' Next Season",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
+      },
+      {
+        "title": "CDC Warns New Drug-Resistant Virus Poses Major Public Health Threat",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
+      },
+      {
+        "title": "Gas Station Attendant Praised For Stopping Alleged Kidnapping",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
+      },
+      {
+        "title": "Major Update To Status Of LIV Golf Amid Speculation: Report",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-major-update-to-status-of-liv-golf-amid-speculation-report/"
+      },
+      {
+        "title": "Average Tax Refund Increased As Filers Claimed At Least One Trump Tax Cut",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-average-tax-refund-increased-as-filers-claimed-at-least-one-trump-tax-cut/"
+      },
+      {
+        "title": "Watch Carrie Underwood Cover Iconic Pat Benatar Anthem In Throwback Clip",
+        "meta": "DAILY READ",
+        "image": "",
+        "link": "https://www.iheart.com/content/2026-04-15-watch-carrie-underwood-cover-iconic-pat-benatar-anthem-in-throwback-clip/"
+      }
+    ]
+  },
+  "promptVideo": {
+    "items": [
+      {
+        "image": "article-hero.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
+      },
+      {
+        "image": "article-hero-2.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
+      },
+      {
+        "image": "article-hero-3.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
+      }
+    ]
+  },
+  "brands": [
+    {
+      "icon": "Thumbnail.png",
+      "name": "Starbucks",
+      "sponsored": "Sponsored",
+      "question": "What brand would you prefer for your morning coffee?",
+      "options": ["Starbucks", "Dunkin", "Grumpy"]
+    },
+    {
+      "icon": "Thumbnail.png",
+      "name": "Starbucks",
+      "sponsored": "Sponsored",
+      "question": "What brand would you prefer for your morning coffee?",
+      "options": ["Starbucks", "Dunkin", "Grumpy"]
+    },
+    {
+      "icon": "Thumbnail.png",
+      "name": "Starbucks",
+      "sponsored": "Sponsored",
+      "question": "What brand would you prefer for your morning coffee?",
+      "options": ["Starbucks", "Dunkin", "Grumpy"]
+    },
+    {
+      "icon": "Thumbnail.png",
+      "name": "Starbucks",
+      "sponsored": "Sponsored",
+      "question": "What brand would you prefer for your morning coffee?",
+      "options": ["Starbucks", "Dunkin", "Grumpy"]
+    }
+  ],
+  "lastSection": {
+    "items": [
+      {
+        "image": "article-hero.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
+      },
+      {
+        "image": "article-hero-2.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
+      },
+      {
+        "image": "article-hero-3.webp",
+        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
+      }
+    ],
+    "middleColumn": {
+      "header": "KATIE NOTOPOULOIS",
+      "articles": [
+        {
+          "color": "#C6002B",
+          "title": "Sending a perfectly-written email? That's so low-end.",
+          "meta": "3 MIN READ"
+        },
+        {
+          "color": "#0645ff",
+          "title": "Big Tech's AI obsession is rattling creators",
+          "meta": "5 MIN READ"
+        },
+        {
+          "color": "#90EE90",
+          "title": "I asked Taco Bell's CMO what his go-to order is. I wasn't ready for the hot-sauce count.",
+          "meta": "3 MIN READ"
+        }
+      ]
+    },
+    "featured": {
+      "title": "Featured",
+      "seeAll": "See all",
+      "cards": [
+        {
+          "initial": "T",
+          "color": "#C6002B",
+          "name": "TED Talent Hub",
+          "stats": "8.4M Members • 10 Groups",
+          "description": "Discover the heart and soul of NYC through our vibrant communiti! 🗽 Discover the heart and soul of N...",
+          "buttonText": "Join"
+        },
+        {
+          "initial": "T",
+          "color": "#C6002B",
+          "name": "TED Talent Hub",
+          "stats": "8.4M Members • 10 Groups",
+          "description": "Discover the heart and soul of NYC through our vibrant communiti! 🗽 Discover the heart and soul of N...",
+          "buttonText": "Join"
+        }
+      ]
+    }
+  }
+}
