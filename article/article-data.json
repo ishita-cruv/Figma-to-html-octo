@@ -1,0 +1,153 @@
+{
+  "pageTitle": "iHeartVIP - article",
+  "header": {
+    "logo": {
+      "icon": "../assets/Ellipse 511.png",
+      "name": "iHeart",
+      "suffix": "RADIO"
+    },
+    "title": {
+      "bold1": "IDEAS",
+      "subtle": "WORTH",
+      "bold2": "SPREADING"
+    },
+    "search": {
+      "icon": "../assets/Icons - Line.png",
+      "placeholder": "Search..."
+    },
+    "buttons": [
+      { "text": "Get app", "type": "secondary" },
+      { "text": "Log in", "type": "primary" }
+    ]
+  },
+  "sidebar": {
+    "navigation": [
+      { "icon": "../assets/Ellipse 511.png", "label": "{iHeart}", "type": "image" },
+      { "icon": "../assets/Icon.png", "label": "Home", "type": "image" },
+      { "icon": "../assets/Icon (1).png", "label": "Popular", "type": "image" },
+      { "icon": "../assets/Icon (2).png", "label": "Latest", "type": "image" },
+      { "icon": "../assets/Icon (3).png", "label": "Explore", "type": "image" },
+      { "icon": "more-dots", "label": "More", "type": "svg" }
+    ],
+    "user": [
+      { "icon": "../assets/Icon (4).png", "label": "Log in" },
+      { "icon": "../assets/Icon (5).png", "label": "Get app" },
+      { "icon": "../assets/Icon (6).png", "label": "Claim Brand Profile" }
+    ],
+    "creatorBanner": "Become a Creator for iHeart, get rewards 🚀",
+    "categories": [
+      "Creativity",
+      "Business",
+      "Health & Wellness",
+      "Books",
+      "Finance"
+    ],
+    "seeMore": "See more",
+    "recent": [
+      { "avatar": "../assets/Image 1.png", "label": "TED Talent Hub" },
+      { "avatar": "../assets/Images.png", "label": "[Community]" },
+      { "avatar": "../assets/Image 1.png", "label": "[Community]" },
+      { "avatar": "../assets/Images.png", "label": "[Community]" }
+    ]
+  },
+  "breadcrumb": "Home / {Category} / {Topic} / {Linkout-Title}",
+  "sections": [
+    {
+      "type": "title",
+      "text": "The Future of Artificial Intelligence: What We Need to Know About the Latest Breakthroughs"
+    },
+    {
+      "type": "featured-image",
+      "image": "../assets/article-race-car.png",
+      "videoSeekerProgress": 35,
+      "adPill": {
+        "text": "Ad starting in",
+        "counter": "5",
+        "progressPercent": 75
+      }
+    },
+    {
+      "type": "article-section",
+      "date": "Mar 12, 2026, 2:02 PM ET",
+      "showActions": true,
+      "paragraphs": [
+        { "text": "On a recent weekend, I was playing with my new puppy when my phone rang. On the other end was the CEO of a major public software company with a warning: the industry was headed for painful financial reset.", "faded": false },
+        { "text": "His call wasn't an isolated concern — over the following days, similar warnings surfaced from half a dozen other executives who share the same quiet unease about what's coming next.", "faded": false }
+      ],
+      "brandCard": {
+        "icon": "../assets/Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "What brand would you prefer for your morning coffee?",
+        "options": ["Starbucks", "Dunkin", "Grumpy"]
+      },
+      "navigation": { "dots": 3, "active": 0 }
+    },
+    {
+      "type": "empty-wrapper",
+      "aspectRatio": "900 / 282"
+    },
+    {
+      "type": "article-section",
+      "showActions": false,
+      "paragraphs": [
+        { "text": "The software industry has entered a period of significant transformation. Companies that once prided themselves on rapid expansion are now facing tough decisions about sustainability, profitability, and long-term growth strategies.", "faded": false },
+        { "text": "What started as whispers in private meetings has become a growing chorus of concern across Silicon Valley boardrooms. The question is no longer whether change is coming, but how quickly organizations can adapt to the new economic realities.", "faded": true }
+      ],
+      "brandCard": {
+        "icon": "../assets/Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "Choose your favorite Starbucks menu item",
+        "options": ["Caramel Macchiato", "Pumpkin Spice Latte", "Iced Americano"]
+      },
+      "navigation": { "dots": 3, "active": 0 }
+    },
+    {
+      "type": "empty-spacer",
+      "height": 769.09
+    },
+    {
+      "type": "article-section",
+      "date": "Apr 15, 2026, 10:15 AM ET",
+      "showActions": true,
+      "paragraphs": [
+        { "text": "Federal health officials issued an urgent warning on Tuesday about a rapidly emerging drug-resistant virus that experts say could strain hospital systems nationwide if containment measures aren't implemented soon.", "faded": false },
+        { "text": "The Centers for Disease Control and Prevention reported that the pathogen has since been identified in patients across twelve states, raising concerns about wider community spread.", "faded": false }
+      ],
+      "brandCard": {
+        "icon": "../assets/Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "What brand would you prefer for your morning coffee?",
+        "options": ["Starbucks", "Dunkin", "Grumpy"]
+      },
+      "navigation": { "dots": 3, "active": 0 }
+    },
+    {
+      "type": "empty-wrapper",
+      "aspectRatio": "900 / 282"
+    },
+    {
+      "type": "article-section",
+      "showActions": false,
+      "paragraphs": [
+        { "text": "The new strain, identified at multiple hospitals in recent weeks, appears to resist several commonly prescribed antibiotics, raising concerns among infectious disease specialists about the potential for wider community spread in the coming months.", "faded": false },
+        { "text": "Officials are urging hospitals to enhance infection control protocols and are calling on the public to follow hygiene guidance, with researchers racing to develop diagnostics and treatments that could curb the outbreak before it expands further.", "faded": true }
+      ],
+      "brandCard": {
+        "icon": "../assets/Thumbnail.png",
+        "name": "Starbucks",
+        "sponsored": "Sponsored",
+        "question": "Choose your favorite Starbucks menu item",
+        "options": ["Caramel Macchiato", "Pumpkin Spice Latte", "Iced Americano"]
+      },
+      "navigation": { "dots": 3, "active": 0 }
+    },
+    {
+      "type": "empty-spacer",
+      "height": 1171,
+      "fullWidth": true
+    }
+  ]
+}

@@ -6,17 +6,18 @@ function isUrl(str) {
 // Render overlay box for carousel images
 function renderOverlay(overlay, compact = false) {
     if (!overlay) return '';
-    const padding = compact ? '10px 14px' : '16px 20px';
-    const authorMargin = compact ? '4px' : '8px';
-    const titleFontSize = compact ? '13px' : '18px';
-    const titleMargin = compact ? '4px' : '8px';
-    const authorFontSize = compact ? '8px' : '10px';
-    const readTimeFontSize = compact ? '8px' : '10px';
+    const padding = compact ? '6px 10px' : '16px 20px';
+    const authorMargin = compact ? '2px' : '8px';
+    const titleFontSize = compact ? '10px' : '18px';
+    const titleMargin = compact ? '2px' : '8px';
+    const authorFontSize = compact ? '7px' : '10px';
+    const readTimeFontSize = compact ? '7px' : '10px';
+    const titleLineHeight = compact ? '1.2' : '1.3';
 
     return `
         <div class="carousel-overlay" style="position: absolute; bottom: 0; left: 0; width: 55%; background-color: #ffffff; padding: ${padding}; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transform: translateY(70%);">
             <div style="font-size: ${authorFontSize}; font-weight: 700; color: #1a1a1a; letter-spacing: 0.5px; margin-bottom: ${authorMargin};">${overlay.author}</div>
-            <h3 style="font-size: ${titleFontSize}; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: ${titleMargin}; font-family: Georgia, 'Iowan Old Style', 'Charter', 'Times New Roman', serif;">${overlay.title}</h3>
+            <h3 style="font-size: ${titleFontSize}; font-weight: 700; color: #1a1a1a; line-height: ${titleLineHeight}; margin-bottom: ${titleMargin}; font-family: Georgia, 'Iowan Old Style', 'Charter', 'Times New Roman', serif;">${overlay.title}</h3>
             <p style="font-size: ${readTimeFontSize}; color: #999; letter-spacing: 0.5px;">${overlay.readTime}</p>
         </div>
     `;
@@ -297,31 +298,85 @@ function setupPromptVideoCarousel(items) {
 
 // Render Brand Section
 function renderBrands(brands) {
+    const brandsPerPage = 4;
+    const totalPages = Math.max(1, Math.ceil(brands.length / brandsPerPage));
+    const firstPageBrands = brands.slice(0, brandsPerPage);
+
+    const dotsHtml = Array.from({ length: totalPages }, (_, idx) => `
+        <div class="brands-dot" data-index="${idx}" style="width: 3px; height: 3px; background-color: ${idx === 0 ? '#999' : '#ddd'}; border-radius: 50%; cursor: pointer;"></div>
+    `).join('');
+
     return `
         <section class="content-section">
             <div class="brands-container">
-                <div class="brands-grid">
-                    ${brands.map(brand => `
-                        <div class="brand-card">
-                            <div class="brand-header">
-                                <div class="brand-icon">
-                                    <img src="${brand.icon}" alt="${brand.name}">
-                                </div>
-                                <div class="brand-info">
-                                    <div class="brand-name">${brand.name}</div>
-                                    <div class="brand-sponsored">${brand.sponsored}</div>
-                                </div>
-                            </div>
-                            <p class="brand-question">${brand.question}</p>
-                            <div class="brand-options">
-                                ${brand.options.map(option => `<div class="brand-option">${option}</div>`).join('')}
-                            </div>
-                        </div>
-                    `).join('')}
+                <div class="brands-grid" id="brands-grid">
+                    ${firstPageBrands.map(renderBrandCard).join('')}
+                </div>
+                <div style="display: flex; justify-content: center; gap: 8px; align-items: center; margin-top: 16px;">
+                    <button id="brands-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    ${dotsHtml}
+                    <button id="brands-next" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>
     `;
+}
+
+// Render a single brand card
+function renderBrandCard(brand) {
+    return `
+        <div class="brand-card">
+            <div class="brand-header">
+                <div class="brand-icon">
+                    <img src="${brand.icon}" alt="${brand.name}">
+                </div>
+                <div class="brand-info">
+                    <div class="brand-name">${brand.name}</div>
+                    <div class="brand-sponsored">${brand.sponsored}</div>
+                </div>
+            </div>
+            <p class="brand-question">${brand.question}</p>
+            <div class="brand-options">
+                ${brand.options.map(option => `<div class="brand-option">${option}</div>`).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// Set up carousel for brands section
+function setupBrandsCarousel(brands) {
+    const brandsPerPage = 4;
+    const totalPages = Math.max(1, Math.ceil(brands.length / brandsPerPage));
+    let currentPage = 0;
+
+    const container = document.getElementById('brands-grid');
+    const prevBtn = document.getElementById('brands-prev');
+    const nextBtn = document.getElementById('brands-next');
+    const dots = document.querySelectorAll('.brands-dot');
+
+    function updatePage(pageIdx) {
+        currentPage = ((pageIdx % totalPages) + totalPages) % totalPages;
+        const start = currentPage * brandsPerPage;
+        const pageBrands = brands.slice(start, start + brandsPerPage);
+        container.innerHTML = pageBrands.map(renderBrandCard).join('');
+        dots.forEach((dot, i) => {
+            dot.style.backgroundColor = i === currentPage ? '#999' : '#ddd';
+        });
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => updatePage(currentPage - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => updatePage(currentPage + 1));
+    dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => updatePage(idx));
+    });
 }
 
 // Render Last Section (3-Column Layout)
@@ -335,7 +390,7 @@ function renderLastSection(data) {
             <div style="display: flex; gap: 24px; padding: 24px;">
                 <!-- Left Column: Large Article -->
                 <div style="flex: 1; display: flex; flex-direction: column;">
-                    <div style="position: relative; flex: 1; margin-bottom: 90px;">
+                    <div style="position: relative; flex: 1; margin-bottom: 60px;">
                         <div style="width: 100%; height: 100%; background-color: #2c2c2c; border-radius: 8px; overflow: hidden;">
                             <a id="lastsection-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
                                 <img id="lastsection-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
@@ -360,18 +415,19 @@ function renderLastSection(data) {
 
                 <!-- Middle Column: Article Cards -->
                 <div style="flex: 1;">
-                    <div style="font-size: 10px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">${data.middleColumn.header}</div>
+                    <div style="font-size: 10px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">${data.middleColumn.header}</div>
                     ${data.middleColumn.articles.map((article, idx) => {
+                        const isLast = idx === data.middleColumn.articles.length - 1;
                         const thumb = article.image
-                            ? `<div style="width: 80px; height: 60px; border-radius: 4px; flex-shrink: 0; background-image: url('${article.image}'); background-size: cover; background-position: center;"></div>`
-                            : `<div style="width: 80px; height: 60px; background-color: ${article.color}; border-radius: 4px; flex-shrink: 0;"></div>`;
+                            ? `<div style="width: 80px; height: 80px; border-radius: 4px; flex-shrink: 0; background-image: url('${article.image}'); background-size: cover; background-position: center;"></div>`
+                            : `<div style="width: 80px; height: 80px; background-color: ${article.color}; border-radius: 4px; flex-shrink: 0;"></div>`;
                         const inner = `
-                            <div style="display: flex; gap: 12px; ${idx < data.middleColumn.articles.length - 1 ? 'margin-bottom: 16px;' : ''}">
-                                ${thumb}
+                            <div style="display: flex; gap: 12px; align-items: flex-start; padding: ${idx === 0 ? '0' : '16px'} 0 ${isLast ? '0' : '16px'}; ${!isLast ? 'border-bottom: 1px solid #e5e5e5;' : ''}">
                                 <div style="flex: 1;">
-                                    <h4 style="font-size: 12px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 4px;">${article.title}</h4>
-                                    <p style="font-size: 10px; color: #999;">${article.meta}</p>
+                                    <h4 style="font-size: 16px; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: 8px; font-family: Georgia, 'Iowan Old Style', 'Charter', 'Times New Roman', serif;">${article.title}</h4>
+                                    <p style="font-size: 10px; color: #999; letter-spacing: 0.5px; font-weight: 600;">${article.meta}</p>
                                 </div>
+                                ${thumb}
                             </div>
                         `;
                         return article.link
@@ -438,6 +494,7 @@ async function renderPage() {
         setupPromptVideoCarousel(data.promptVideo.items);
         setupLastSectionCarousel(data.lastSection.items);
         setupExclusiveCarousel(data.exclusive.articles);
+        setupBrandsCarousel(data.brands);
     } catch (error) {
         console.error('Error loading data:', error);
     }
