@@ -18,25 +18,33 @@
   },
   "sidebar": {
     "navigation": [
-      { "icon": "../assets/Ellipse 511.png", "label": "{iHeart}", "type": "image" },
-      { "icon": "../assets/Icon.png", "label": "Home", "type": "image" },
-      { "icon": "../assets/Icon (1).png", "label": "Popular", "type": "image" },
-      { "icon": "../assets/Icon (2).png", "label": "Latest", "type": "image" },
-      { "icon": "../assets/Icon (3).png", "label": "Explore", "type": "image" },
-      { "icon": "more-dots", "label": "More", "type": "svg" }
+      { "icon": "../assets/Ellipse 511.png", "label": "{iHeart}", "type": "image", "link": "https://example.com/iheart" },
+      { "icon": "../assets/Icon.png", "label": "Home", "type": "image", "link": "https://example.com/home" },
+      { "icon": "../assets/Icon (1).png", "label": "Popular", "type": "image", "link": "https://example.com/popular" },
+      { "icon": "../assets/Icon (2).png", "label": "Latest", "type": "image", "link": "https://example.com/latest" },
+      { "icon": "../assets/Icon (3).png", "label": "Explore", "type": "image", "link": "https://example.com/explore" },
+      { "icon": "more-dots", "label": "More", "type": "svg", "link": "https://example.com/more" }
     ],
-    "user": [
-      { "icon": "../assets/Icon (4).png", "label": "Log in" },
-      { "icon": "../assets/Icon (5).png", "label": "Get app" },
-      { "icon": "../assets/Icon (6).png", "label": "Claim Brand Profile" }
-    ],
+    "user": [],
     "creatorBanner": "Become a Creator for iHeart, get rewards 🚀",
     "categories": [
-      "Creativity",
-      "Business",
-      "Health & Wellness",
-      "Books",
-      "Finance"
+      { "name": "Rod Ryan Show", "items": [
+        { "label": "The Rod Ryan Show", "avatar": "", "link": "https://example.com/rod-ryan-show" }
+      ]},
+      { "name": "Elvis Duran", "items": [
+        { "label": "Elvis Duran and the Morning Show", "avatar": "", "link": "https://example.com/elvis-duran-morning" },
+        { "label": "Y100 @100.7FM", "avatar": "", "link": "https://example.com/y100" }
+      ]},
+      { "name": "Mojo in the Morning", "items": [
+        { "label": "Mojo In The Morning", "avatar": "", "link": "https://example.com/mojo-morning" }
+      ]},
+      { "name": "Intern John", "items": [
+        { "label": "Intern John & Your Morning", "avatar": "", "link": "https://example.com/intern-john-morning" },
+        { "label": "HOT 995", "avatar": "", "link": "https://example.com/hot-995" }
+      ]},
+      { "name": "The Fred Show", "items": [
+        { "label": "The Fred Show On Demand", "avatar": "", "link": "https://example.com/fred-show-on-demand" }
+      ]}
     ],
     "seeMore": "See more",
     "recent": [
@@ -46,7 +54,7 @@
       { "avatar": "../assets/Images.png", "label": "[Community]" }
     ]
   },
-  "breadcrumb": "Home / {Category} / {Topic} / {Linkout-Title}",
+  "breadcrumb": "Home /",
   "sections": [
     {
       "type": "title",

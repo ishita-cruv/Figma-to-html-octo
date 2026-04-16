@@ -43,12 +43,13 @@ function renderSidebar(data) {
             : `<img src="${item.icon}" alt="${item.label}">`;
         const classes = collapsed ? 'sidebar-item collapsed-only' : 'sidebar-item';
         const span = collapsed ? '' : `<span>${item.label}</span>`;
-        return `
-            <div class="${classes}">
-                <div class="sidebar-item-icon">${iconContent}</div>
-                ${span}
-            </div>
+        const inner = `
+            <div class="sidebar-item-icon">${iconContent}</div>
+            ${span}
         `;
+        return item.link
+            ? `<a class="${classes}" href="${item.link}" style="text-decoration: none; color: inherit;">${inner}</a>`
+            : `<div class="${classes}">${inner}</div>`;
     };
 
     const chevronSvg = `<svg class="sidebar-label-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -86,39 +87,45 @@ function renderSidebar(data) {
             </div>
         `).join('')}
 
-        <div class="creator-banner">${data.creatorBanner}</div>
-
         <div class="sidebar-label">
             Categories ${chevronSvg}
         </div>
         <div class="sidebar-section-expanded">
-            ${data.categories.map(cat => `
-                <div class="category-item">
-                    <span>${cat}</span>
-                    ${categoryChevronSvg}
-                </div>
-            `).join('')}
-        </div>
-
-        <div class="sidebar-label">
-            Recent ${chevronSvg}
-        </div>
-        <div class="sidebar-section-expanded">
-            ${data.recent.map(item => `
-                <div class="community-item">
-                    <div class="community-avatar">
-                        <img src="${item.avatar}" alt="${item.label}">
+            ${data.categories.map(cat => {
+                const name = typeof cat === 'string' ? cat : cat.name;
+                const icon = typeof cat === 'string' ? '' : (cat.icon || '');
+                const items = typeof cat === 'string' ? [] : (cat.items || []);
+                const iconHtml = icon
+                    ? `<span class="category-item-icon"><img src="${icon}" alt="${name}"></span>`
+                    : '';
+                const subItems = items.length
+                    ? `<div class="category-subitems" style="display: none;">
+                        ${items.map(sub => {
+                            const label = typeof sub === 'string' ? sub : sub.label;
+                            const avatar = typeof sub === 'string' ? '' : (sub.avatar || '');
+                            const link = typeof sub === 'string' ? '' : (sub.link || '');
+                            const avatarHtml = avatar
+                                ? `<div class="category-subitem-avatar"><img src="${avatar}" alt="${label}"></div>`
+                                : `<div class="category-subitem-avatar"></div>`;
+                            const inner = `${avatarHtml}<span>${label}</span>`;
+                            return link
+                                ? `<a class="category-subitem" href="${link}" style="text-decoration: none;">${inner}</a>`
+                                : `<div class="category-subitem">${inner}</div>`;
+                        }).join('')}
+                    </div>`
+                    : '';
+                return `
+                    <div class="category-group">
+                        <div class="category-item">
+                            <span class="category-item-label">${iconHtml}<span>${name}</span></span>
+                            ${categoryChevronSvg}
+                        </div>
+                        ${subItems}
                     </div>
-                    <span>${item.label}</span>
-                </div>
-            `).join('')}
+                `;
+            }).join('')}
         </div>
 
-        ${data.recent.map(item => `
-            <div class="community-avatar collapsed-only">
-                <img src="${item.avatar}" alt="${item.label}">
-            </div>
-        `).join('')}
     `;
 }
 
@@ -312,6 +319,16 @@ function setupCollapsibleSections() {
             const isCollapsed = label.classList.toggle('collapsed');
             const next = label.nextElementSibling;
             if (next) next.style.display = isCollapsed ? 'none' : '';
+        });
+    });
+    sidebar.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const group = item.closest('.category-group');
+            const sub = group ? group.querySelector('.category-subitems') : null;
+            if (!sub) return;
+            const isOpen = item.classList.toggle('open');
+            sub.style.display = isOpen ? 'block' : 'none';
         });
     });
 }
