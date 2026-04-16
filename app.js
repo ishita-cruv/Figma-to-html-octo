@@ -334,36 +334,52 @@ function renderLastSection(data) {
                 <!-- Middle Column: Article Cards -->
                 <div style="flex: 1;">
                     <div style="font-size: 10px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">${data.middleColumn.header}</div>
-                    ${data.middleColumn.articles.map((article, idx) => `
-                        <div style="display: flex; gap: 12px; ${idx < data.middleColumn.articles.length - 1 ? 'margin-bottom: 16px;' : ''}">
-                            <div style="width: 80px; height: 60px; background-color: ${article.color}; border-radius: 4px; flex-shrink: 0;"></div>
-                            <div style="flex: 1;">
-                                <h4 style="font-size: 12px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 4px;">${article.title}</h4>
-                                <p style="font-size: 10px; color: #999;">${article.meta}</p>
+                    ${data.middleColumn.articles.map((article, idx) => {
+                        const thumb = article.image
+                            ? `<div style="width: 80px; height: 60px; border-radius: 4px; flex-shrink: 0; background-image: url('${article.image}'); background-size: cover; background-position: center;"></div>`
+                            : `<div style="width: 80px; height: 60px; background-color: ${article.color}; border-radius: 4px; flex-shrink: 0;"></div>`;
+                        const inner = `
+                            <div style="display: flex; gap: 12px; ${idx < data.middleColumn.articles.length - 1 ? 'margin-bottom: 16px;' : ''}">
+                                ${thumb}
+                                <div style="flex: 1;">
+                                    <h4 style="font-size: 12px; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin-bottom: 4px;">${article.title}</h4>
+                                    <p style="font-size: 10px; color: #999;">${article.meta}</p>
+                                </div>
                             </div>
-                        </div>
-                    `).join('')}
+                        `;
+                        return article.link
+                            ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">${inner}</a>`
+                            : inner;
+                    }).join('')}
                 </div>
 
                 <!-- Right Column: Featured -->
                 <div style="flex: 1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${data.featured.title}</h3>
-                        <a href="#" style="color: #0645ff; font-size: 12px; text-decoration: none;">${data.featured.seeAll}</a>
+                        <a href="${data.featured.seeAllLink || '#'}" target="_blank" rel="noopener noreferrer" style="color: #0645ff; font-size: 12px; text-decoration: none;">${data.featured.seeAll}</a>
                     </div>
-                    ${data.featured.cards.map((card, idx) => `
-                        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 12px; ${idx < data.featured.cards.length - 1 ? 'margin-bottom: 12px;' : ''}">
-                            <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-                                <div style="width: 40px; height: 40px; background-color: ${card.color}; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">${card.initial}</div>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 600; font-size: 12px; color: #1a1a1a;">${card.name}</div>
-                                    <div style="font-size: 10px; color: #999;">${card.stats}</div>
+                    ${data.featured.cards.map((card, idx) => {
+                        const avatar = card.image
+                            ? `<div style="width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background-image: url('${card.image}'); background-size: cover; background-position: center;"></div>`
+                            : `<div style="width: 40px; height: 40px; background-color: ${card.color}; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">${card.initial}</div>`;
+                        const inner = `
+                            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 12px; ${idx < data.featured.cards.length - 1 ? 'margin-bottom: 12px;' : ''}">
+                                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                                    ${avatar}
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; font-size: 12px; color: #1a1a1a;">${card.name}</div>
+                                        <div style="font-size: 10px; color: #999;">${card.stats}</div>
+                                    </div>
+                                    <button style="background-color: ${card.color}; color: white; border: none; border-radius: 4px; padding: 6px 12px; font-size: 11px; font-weight: 600; cursor: pointer;">${card.buttonText}</button>
                                 </div>
-                                <button style="background-color: ${card.color}; color: white; border: none; border-radius: 4px; padding: 6px 12px; font-size: 11px; font-weight: 600; cursor: pointer;">${card.buttonText}</button>
+                                <p style="font-size: 11px; color: #666; line-height: 1.4;">${card.description}</p>
                             </div>
-                            <p style="font-size: 11px; color: #666; line-height: 1.4;">${card.description}</p>
-                        </div>
-                    `).join('')}
+                        `;
+                        return card.link
+                            ? `<a href="${card.link}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">${inner}</a>`
+                            : inner;
+                    }).join('')}
                 </div>
             </div>
         </section>

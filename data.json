@@ -161,40 +161,51 @@
       "articles": [
         {
           "color": "#C6002B",
+          "image": "",
           "title": "Sending a perfectly-written email? That's so low-end.",
-          "meta": "3 MIN READ"
+          "meta": "3 MIN READ",
+          "link": "https://www.iheart.com/content/2026-04-15-powerball-winner-did-anyone-win-wednesdays-59-million-jackpot/"
         },
         {
           "color": "#0645ff",
+          "image": "",
           "title": "Big Tech's AI obsession is rattling creators",
-          "meta": "5 MIN READ"
+          "meta": "5 MIN READ",
+          "link": "https://www.iheart.com/content/2026-04-15-billy-crystal-emotionally-recalls-final-conversation-with-rob-reiner/"
         },
         {
           "color": "#90EE90",
+          "image": "",
           "title": "I asked Taco Bell's CMO what his go-to order is. I wasn't ready for the hot-sauce count.",
-          "meta": "3 MIN READ"
+          "meta": "3 MIN READ",
+          "link": "https://www.iheart.com/content/2026-04-15-anne-hathaway-reveals-how-beyonc-influenced-her-new-role-as-a-pop-star/"
         }
       ]
     },
     "featured": {
       "title": "Featured",
       "seeAll": "See all",
+      "seeAllLink": "https://www.iheart.com/news/",
       "cards": [
         {
           "initial": "T",
           "color": "#C6002B",
+          "image": "",
           "name": "TED Talent Hub",
           "stats": "8.4M Members • 10 Groups",
           "description": "Discover the heart and soul of NYC through our vibrant communiti! 🗽 Discover the heart and soul of N...",
-          "buttonText": "Join"
+          "buttonText": "Join",
+          "link": "https://www.iheart.com/content/2026-04-15-nba-probing-lamelo-ball-bam-adebayo-play-in-game-incident/"
         },
         {
           "initial": "T",
           "color": "#C6002B",
+          "image": "",
           "name": "TED Talent Hub",
           "stats": "8.4M Members • 10 Groups",
           "description": "Discover the heart and soul of NYC through our vibrant communiti! 🗽 Discover the heart and soul of N...",
-          "buttonText": "Join"
+          "buttonText": "Join",
+          "link": "https://www.iheart.com/content/2026-04-15-sandra-bullock-nicole-kidman-share-new-details-about-practical-magic-2/"
         }
       ]
     }
