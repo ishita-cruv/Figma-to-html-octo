@@ -172,13 +172,13 @@ function renderFeaturedContainer(greeting, exclusive) {
                         ${firstPageArticles.map(article => renderArticleCard(article)).join('')}
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; margin-top: 16px; align-items: center;">
-                        <button id="exclusive-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="exclusive-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="exclusive-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="exclusive-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
@@ -228,8 +228,8 @@ function setupExclusiveCarousel(articles) {
         });
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => updatePage(currentPage - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => updatePage(currentPage + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); updatePage(currentPage - 1); prevBtn.blur(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); updatePage(currentPage + 1); nextBtn.blur(); });
     dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => updatePage(idx));
     });
@@ -254,13 +254,13 @@ function renderPromptVideo(data) {
                         <div id="promptvideo-overlay">${renderOverlay(data.items[0].overlay)}</div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
-                        <button id="promptvideo-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="promptvideo-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="promptvideo-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="promptvideo-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
@@ -296,8 +296,8 @@ function setupPromptVideoCarousel(items) {
         });
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => updateItem(currentIndex - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => updateItem(currentIndex + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); updateItem(currentIndex - 1); prevBtn.blur(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); updateItem(currentIndex + 1); nextBtn.blur(); });
     dots.forEach((dot, idx) => {
         dot.style.cursor = 'pointer';
         dot.addEventListener('click', () => updateItem(idx));
@@ -321,13 +321,13 @@ function renderBrands(brands) {
                     ${firstPageBrands.map(renderBrandCard).join('')}
                 </div>
                 <div style="display: flex; justify-content: center; gap: 8px; align-items: center; margin-top: 16px;">
-                    <button id="brands-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <button type="button" id="brands-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     </button>
                     ${dotsHtml}
-                    <button id="brands-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <button type="button" id="brands-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
@@ -380,8 +380,8 @@ function setupBrandsCarousel(brands) {
         });
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => updatePage(currentPage - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => updatePage(currentPage + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); updatePage(currentPage - 1); prevBtn.blur(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); updatePage(currentPage + 1); nextBtn.blur(); });
     dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => updatePage(idx));
     });
@@ -407,13 +407,13 @@ function renderLastSection(data) {
                         <div id="lastsection-overlay">${renderOverlay(data.items[0].overlay, true)}</div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
-                        <button id="lastsection-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="lastsection-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="lastsection-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <button type="button" id="lastsection-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
@@ -534,8 +534,8 @@ function setupLastSectionCarousel(items) {
         });
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => updateItem(currentIndex - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => updateItem(currentIndex + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); updateItem(currentIndex - 1); prevBtn.blur(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); updateItem(currentIndex + 1); nextBtn.blur(); });
     dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => updateItem(idx));
     });
