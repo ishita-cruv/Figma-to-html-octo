@@ -118,9 +118,10 @@ function renderSidebar(data) {
                             const label = typeof sub === 'string' ? sub : sub.label;
                             const avatar = typeof sub === 'string' ? '' : (sub.avatar || '');
                             const link = typeof sub === 'string' ? '' : (sub.link || '');
+                            const placeholderIcon = `<svg viewBox="0 0 24 24" fill="currentColor" style="width: 60%; height: 60%; color: #fff;"><path d="M12 14a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 006 6.92V21h2v-3.08A7 7 0 0019 11h-2z"/></svg>`;
                             const avatarHtml = avatar
                                 ? `<div class="category-subitem-avatar"><img src="${avatar}" alt="${label}"></div>`
-                                : `<div class="category-subitem-avatar"></div>`;
+                                : `<div class="category-subitem-avatar category-subitem-avatar--placeholder">${placeholderIcon}</div>`;
                             const inner = `${avatarHtml}<span>${label}</span>`;
                             return link
                                 ? `<a class="category-subitem" href="${link}" style="text-decoration: none;">${inner}</a>`
@@ -171,14 +172,14 @@ function renderFeaturedContainer(greeting, exclusive) {
                         ${firstPageArticles.map(article => renderArticleCard(article)).join('')}
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; margin-top: 16px; align-items: center;">
-                        <button id="exclusive-prev" style="width: 20px; height: 20px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="exclusive-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="exclusive-next" style="width: 20px; height: 20px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="exclusive-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </button>
@@ -244,7 +245,7 @@ function renderPromptVideo(data) {
         <section class="content-section promptvideo-section" style="height: 733.11px;">
             <div class="promptvideo-grid" style="display: flex; gap: 20px; padding: 24px; height: 100%;">
                 <div class="promptvideo-col" style="flex: 73; min-width: 0; display: flex; flex-direction: column;">
-                    <div style="position: relative; flex: 1; margin-bottom: 140px;">
+                    <div style="position: relative; flex: 1; margin-bottom: 140px; min-height: 320px;">
                         <div style="width: 100%; height: 100%; background-color: #e5e5e5; border: 2px solid #d0d0d0; border-radius: 8px; overflow: hidden;">
                             <a id="promptvideo-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
                                 <img id="promptvideo-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
@@ -253,14 +254,14 @@ function renderPromptVideo(data) {
                         <div id="promptvideo-overlay">${renderOverlay(data.items[0].overlay)}</div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
-                        <button id="promptvideo-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="promptvideo-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="promptvideo-next" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="promptvideo-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </button>
@@ -320,14 +321,14 @@ function renderBrands(brands) {
                     ${firstPageBrands.map(renderBrandCard).join('')}
                 </div>
                 <div style="display: flex; justify-content: center; gap: 8px; align-items: center; margin-top: 16px;">
-                    <button id="brands-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <button id="brands-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     </button>
                     ${dotsHtml}
-                    <button id="brands-next" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <button id="brands-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </button>
@@ -406,14 +407,14 @@ function renderLastSection(data) {
                         <div id="lastsection-overlay">${renderOverlay(data.items[0].overlay, true)}</div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
-                        <button id="lastsection-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="lastsection-prev" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         ${dotsHtml}
-                        <button id="lastsection-next" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button id="lastsection-next" style="width: 24px; height: 24px; background-color: #666; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </button>
@@ -422,9 +423,12 @@ function renderLastSection(data) {
 
                 <!-- Middle Column: Article Cards -->
                 <div class="lastsection-col" style="flex: 1;">
-                    <div style="font-size: 10px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">${data.middleColumn.header}</div>
-                    ${data.middleColumn.articles.map((article, idx) => {
-                        const isLast = idx === data.middleColumn.articles.length - 1;
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 10px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">${data.middleColumn.header}</div>
+                        ${data.middleColumn.articles.length > 3 ? `<a href="${data.featured.seeAllLink || '#'}" target="_blank" rel="noopener noreferrer" style="color: #0645ff; font-size: 12px; text-decoration: none;">See all</a>` : ''}
+                    </div>
+                    ${data.middleColumn.articles.slice(0, 3).map((article, idx, arr) => {
+                        const isLast = idx === arr.length - 1;
                         const thumb = article.image
                             ? `<div style="width: 80px; height: 80px; border-radius: 4px; flex-shrink: 0; background-image: url('${article.image}'); background-size: cover; background-position: center;"></div>`
                             : `<div style="width: 80px; height: 80px; background-color: ${article.color}; border-radius: 4px; flex-shrink: 0;"></div>`;
@@ -447,14 +451,14 @@ function renderLastSection(data) {
                 <div class="lastsection-col" style="flex: 1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${data.featured.title}</h3>
-                        <a href="${data.featured.seeAllLink || '#'}" target="_blank" rel="noopener noreferrer" style="color: #0645ff; font-size: 12px; text-decoration: none;">${data.featured.seeAll}</a>
+                        ${data.featured.cards.length > 3 ? `<a href="${data.featured.seeAllLink || '#'}" target="_blank" rel="noopener noreferrer" style="color: #0645ff; font-size: 12px; text-decoration: none;">${data.featured.seeAll}</a>` : ''}
                     </div>
-                    ${data.featured.cards.map((card, idx) => {
+                    ${data.featured.cards.slice(0, 3).map((card, idx, arr) => {
                         const avatar = card.image
                             ? `<div style="width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background-image: url('${card.image}'); background-size: cover; background-position: center;"></div>`
                             : `<div style="width: 40px; height: 40px; background-color: ${card.color}; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">${card.initial}</div>`;
                         const inner = `
-                            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 12px; ${idx < data.featured.cards.length - 1 ? 'margin-bottom: 12px;' : ''}">
+                            <div style="background-color: #f5f5f5; border-radius: 8px; padding: 12px; ${idx < arr.length - 1 ? 'margin-bottom: 12px;' : ''}">
                                 <div style="display: flex; gap: 10px; margin-bottom: 8px;">
                                     ${avatar}
                                     <div style="flex: 1;">
