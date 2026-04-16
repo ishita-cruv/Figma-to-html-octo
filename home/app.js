@@ -29,7 +29,7 @@ function renderHeader(data) {
     const logoHtml = `
         <div class="header-left">
             <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -483,7 +483,9 @@ async function renderPage() {
 
         renderHeader(data.header);
         renderSidebar(data.sidebar);
+        setupCollapsibleSections();
         setupMobileMenu();
+        setupMobileSearch();
 
         const content = document.getElementById('content');
         content.innerHTML = `
@@ -548,6 +550,41 @@ function setupMobileMenu() {
             backdrop.classList.remove('visible');
         });
     }
+}
+
+function setupCollapsibleSections() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    sidebar.querySelectorAll('.sidebar-label').forEach(label => {
+        label.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isCollapsed = label.classList.toggle('collapsed');
+            const next = label.nextElementSibling;
+            if (next) next.style.display = isCollapsed ? 'none' : '';
+        });
+    });
+}
+
+function setupMobileSearch() {
+    const container = document.querySelector('.header-right .search-container');
+    const headerRight = document.querySelector('.header-right');
+    if (!container || !headerRight) return;
+
+    container.addEventListener('click', (e) => {
+        if (window.innerWidth > 640) return;
+        e.stopPropagation();
+        if (!headerRight.classList.contains('search-active')) {
+            headerRight.classList.add('search-active');
+            const input = container.querySelector('input');
+            if (input) setTimeout(() => input.focus(), 50);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!headerRight.contains(e.target)) {
+            headerRight.classList.remove('search-active');
+        }
+    });
 }
 
 // Initialize on page load

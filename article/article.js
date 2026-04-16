@@ -4,7 +4,7 @@ function renderHeader(data) {
     header.innerHTML = `
         <div class="header-left">
             <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -135,15 +135,12 @@ function renderFeaturedImage(section) {
     const adPill = section.adPill ? renderAdPill(section.adPill) : '';
     const progress = section.videoSeekerProgress || 0;
     return `
-        <div style="display: flex; gap: 16px; margin-bottom: 32px;">
-            <div style="flex: 900; min-width: 0; position: relative;">
-                <img src="${section.image}" alt="Article featured image" class="article-featured-image">
-                <div class="video-seeker">
-                    <div class="seeker-progress" style="width: ${progress}%;"></div>
-                </div>
-                ${adPill}
+        <div style="margin-bottom: 32px; position: relative;">
+            <img src="${section.image}" alt="Article featured image" class="article-featured-image">
+            <div class="video-seeker">
+                <div class="seeker-progress" style="width: ${progress}%;"></div>
             </div>
-            <div style="flex: 392; min-width: 0; aspect-ratio: 392 / 640; border: 1px solid #d0d0d0; border-radius: 8px; position: relative;"></div>
+            ${adPill}
         </div>
     `;
 }
@@ -263,12 +260,11 @@ function renderArticleSection(section) {
 }
 
 function renderEmptyWrapper(section) {
-    return `<div style="width: calc((100% - 16px) * 900 / 1292); aspect-ratio: ${section.aspectRatio}; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
+    return `<div style="width: 100%; aspect-ratio: ${section.aspectRatio}; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
 }
 
 function renderEmptySpacer(section) {
-    const width = section.fullWidth ? '100%' : 'calc((100% - 16px) * 900 / 1292)';
-    return `<div style="width: ${width}; height: ${section.height}px; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
+    return `<div style="width: 100%; height: ${section.height}px; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
 }
 
 // Render Breadcrumb
@@ -292,8 +288,32 @@ function renderSection(section) {
 function renderArticleContent(data) {
     const container = document.getElementById('article-content');
     const breadcrumb = data.breadcrumb ? renderBreadcrumb(data.breadcrumb) : '';
-    const sectionsHtml = data.sections.map(renderSection).join('');
-    container.innerHTML = breadcrumb + sectionsHtml;
+    const heroIdx = data.sections.findIndex(s => s.type === 'featured-image');
+    const preSections = heroIdx >= 0 ? data.sections.slice(0, heroIdx) : [];
+    const mainSections = heroIdx >= 0 ? data.sections.slice(heroIdx) : data.sections;
+    const preHtml = preSections.map(renderSection).join('');
+    const mainHtml = mainSections.map(renderSection).join('');
+    container.innerHTML = `
+        ${breadcrumb}
+        ${preHtml}
+        <div class="article-layout">
+            <div class="article-main">${mainHtml}</div>
+            <aside class="article-side"></aside>
+        </div>
+    `;
+}
+
+function setupCollapsibleSections() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    sidebar.querySelectorAll('.sidebar-label').forEach(label => {
+        label.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isCollapsed = label.classList.toggle('collapsed');
+            const next = label.nextElementSibling;
+            if (next) next.style.display = isCollapsed ? 'none' : '';
+        });
+    });
 }
 
 function setupMobileMenu() {
@@ -314,6 +334,28 @@ function setupMobileMenu() {
             backdrop.classList.remove('visible');
         });
     }
+}
+
+function setupMobileSearch() {
+    const container = document.querySelector('.header-right .search-container');
+    const headerRight = document.querySelector('.header-right');
+    if (!container || !headerRight) return;
+
+    container.addEventListener('click', (e) => {
+        if (window.innerWidth > 640) return;
+        e.stopPropagation();
+        if (!headerRight.classList.contains('search-active')) {
+            headerRight.classList.add('search-active');
+            const input = container.querySelector('input');
+            if (input) setTimeout(() => input.focus(), 50);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!headerRight.contains(e.target)) {
+            headerRight.classList.remove('search-active');
+        }
+    });
 }
 
 // Sidebar toggle handling (kept dynamic)
@@ -344,7 +386,9 @@ async function renderPage() {
         renderSidebar(data.sidebar);
         renderArticleContent(data);
         setupSidebarToggle();
+        setupCollapsibleSections();
         setupMobileMenu();
+        setupMobileSearch();
     } catch (err) {
         console.error('Error loading article data:', err);
     }
