@@ -3,6 +3,25 @@ function isUrl(str) {
     return str && (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('data:'));
 }
 
+// Render overlay box for carousel images
+function renderOverlay(overlay, compact = false) {
+    if (!overlay) return '';
+    const padding = compact ? '10px 14px' : '16px 20px';
+    const authorMargin = compact ? '4px' : '8px';
+    const titleFontSize = compact ? '13px' : '18px';
+    const titleMargin = compact ? '4px' : '8px';
+    const authorFontSize = compact ? '8px' : '10px';
+    const readTimeFontSize = compact ? '8px' : '10px';
+
+    return `
+        <div class="carousel-overlay" style="position: absolute; bottom: 0; left: 0; width: 55%; background-color: #ffffff; padding: ${padding}; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transform: translateY(70%);">
+            <div style="font-size: ${authorFontSize}; font-weight: 700; color: #1a1a1a; letter-spacing: 0.5px; margin-bottom: ${authorMargin};">${overlay.author}</div>
+            <h3 style="font-size: ${titleFontSize}; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: ${titleMargin}; font-family: Georgia, 'Iowan Old Style', 'Charter', 'Times New Roman', serif;">${overlay.title}</h3>
+            <p style="font-size: ${readTimeFontSize}; color: #999; letter-spacing: 0.5px;">${overlay.readTime}</p>
+        </div>
+    `;
+}
+
 // Render Header
 function renderHeader(data) {
     const header = document.getElementById('header');
@@ -216,13 +235,16 @@ function renderPromptVideo(data) {
     return `
         <section class="content-section" style="height: 733.11px;">
             <div style="display: flex; gap: 20px; padding: 24px; height: 100%;">
-                <div style="flex: 73; min-width: 0; display: flex; flex-direction: column; overflow: hidden;">
-                    <div style="background-color: #e5e5e5; border: 2px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin-bottom: 16px; flex: 1;">
-                        <a id="promptvideo-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
-                            <img id="promptvideo-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
-                        </a>
+                <div style="flex: 73; min-width: 0; display: flex; flex-direction: column;">
+                    <div style="position: relative; flex: 1; margin-bottom: 140px;">
+                        <div style="width: 100%; height: 100%; background-color: #e5e5e5; border: 2px solid #d0d0d0; border-radius: 8px; overflow: hidden;">
+                            <a id="promptvideo-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
+                                <img id="promptvideo-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
+                            </a>
+                        </div>
+                        <div id="promptvideo-overlay">${renderOverlay(data.items[0].overlay)}</div>
                     </div>
-                    <div style="display: flex; justify-content: flex-start; gap: 8px; align-items: center;">
+                    <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
                         <button id="promptvideo-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
                             <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="15 18 9 12 15 6"></polyline>
@@ -250,6 +272,7 @@ function setupPromptVideoCarousel(items) {
     let currentIndex = 0;
     const imgEl = document.getElementById('promptvideo-image');
     const linkEl = document.getElementById('promptvideo-link');
+    const overlayEl = document.getElementById('promptvideo-overlay');
     const prevBtn = document.getElementById('promptvideo-prev');
     const nextBtn = document.getElementById('promptvideo-next');
     const dots = document.querySelectorAll('.promptvideo-dot');
@@ -258,6 +281,7 @@ function setupPromptVideoCarousel(items) {
         currentIndex = ((idx % items.length) + items.length) % items.length;
         imgEl.src = items[currentIndex].image;
         if (linkEl) linkEl.href = items[currentIndex].link;
+        if (overlayEl) overlayEl.innerHTML = renderOverlay(items[currentIndex].overlay, false);
         dots.forEach((dot, i) => {
             dot.style.backgroundColor = i === currentIndex ? '#999' : '#ddd';
         });
@@ -311,12 +335,15 @@ function renderLastSection(data) {
             <div style="display: flex; gap: 24px; padding: 24px;">
                 <!-- Left Column: Large Article -->
                 <div style="flex: 1; display: flex; flex-direction: column;">
-                    <div style="background-color: #2c2c2c; border-radius: 8px; overflow: hidden; margin-bottom: 16px; flex: 1;">
-                        <a id="lastsection-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
-                            <img id="lastsection-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
-                        </a>
+                    <div style="position: relative; flex: 1; margin-bottom: 90px;">
+                        <div style="width: 100%; height: 100%; background-color: #2c2c2c; border-radius: 8px; overflow: hidden;">
+                            <a id="lastsection-link" href="${data.items[0].link}" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
+                                <img id="lastsection-image" src="${data.items[0].image}" alt="Article" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
+                            </a>
+                        </div>
+                        <div id="lastsection-overlay">${renderOverlay(data.items[0].overlay, true)}</div>
                     </div>
-                    <div style="display: flex; justify-content: flex-start; gap: 8px; align-items: center;">
+                    <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
                         <button id="lastsection-prev" style="width: 18px; height: 18px; background-color: #999; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px;">
                             <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="15 18 9 12 15 6"></polyline>
@@ -421,6 +448,7 @@ function setupLastSectionCarousel(items) {
     let currentIndex = 0;
     const imgEl = document.getElementById('lastsection-image');
     const linkEl = document.getElementById('lastsection-link');
+    const overlayEl = document.getElementById('lastsection-overlay');
     const prevBtn = document.getElementById('lastsection-prev');
     const nextBtn = document.getElementById('lastsection-next');
     const dots = document.querySelectorAll('.lastsection-dot');
@@ -429,6 +457,7 @@ function setupLastSectionCarousel(items) {
         currentIndex = ((idx % items.length) + items.length) % items.length;
         imgEl.src = items[currentIndex].image;
         if (linkEl) linkEl.href = items[currentIndex].link;
+        if (overlayEl) overlayEl.innerHTML = renderOverlay(items[currentIndex].overlay, true);
         dots.forEach((dot, i) => {
             dot.style.backgroundColor = i === currentIndex ? '#999' : '#ddd';
         });

@@ -60,37 +60,37 @@
       {
         "title": "Adam Levine Makes Decision About Returning To 'The Voice' Next Season",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/voice/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
       },
       {
         "title": "CDC Warns New Drug-Resistant Virus Poses Major Public Health Threat",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/cdc/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
       },
       {
         "title": "Gas Station Attendant Praised For Stopping Alleged Kidnapping",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/gasstation/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
       },
       {
         "title": "Major Update To Status Of LIV Golf Amid Speculation: Report",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/golf/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-major-update-to-status-of-liv-golf-amid-speculation-report/"
       },
       {
         "title": "Average Tax Refund Increased As Filers Claimed At Least One Trump Tax Cut",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/taxes/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-average-tax-refund-increased-as-filers-claimed-at-least-one-trump-tax-cut/"
       },
       {
         "title": "Watch Carrie Underwood Cover Iconic Pat Benatar Anthem In Throwback Clip",
         "meta": "DAILY READ",
-        "image": "",
+        "image": "https://picsum.photos/seed/carrie/400/300",
         "link": "https://www.iheart.com/content/2026-04-15-watch-carrie-underwood-cover-iconic-pat-benatar-anthem-in-throwback-clip/"
       }
     ]
@@ -99,15 +99,30 @@
     "items": [
       {
         "image": "article-hero.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
+        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/",
+        "overlay": {
+          "author": "ALISTAIR BARR",
+          "title": "A software CEO called me on the weekend recently with painful predictions. One is already coming true.",
+          "readTime": "5 MIN READ"
+        }
       },
       {
         "image": "article-hero-2.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
+        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/",
+        "overlay": {
+          "author": "SARAH CHEN",
+          "title": "CDC warns a new drug-resistant virus could become the next major public health crisis.",
+          "readTime": "4 MIN READ"
+        }
       },
       {
         "image": "article-hero-3.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
+        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/",
+        "overlay": {
+          "author": "MARK ROBINSON",
+          "title": "A gas station attendant is being hailed as a hero for stopping an alleged kidnapping in progress.",
+          "readTime": "3 MIN READ"
+        }
       }
     ]
   },
@@ -145,15 +160,30 @@
     "items": [
       {
         "image": "article-hero.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/"
+        "link": "https://www.iheart.com/content/2026-04-15-adam-levine-makes-decision-about-returning-to-the-voice-next-season/",
+        "overlay": {
+          "author": "ALISTAIR BARR",
+          "title": "A software CEO called me on the weekend recently with painful predictions. One is already coming true.",
+          "readTime": "5 MIN READ"
+        }
       },
       {
         "image": "article-hero-2.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/"
+        "link": "https://www.iheart.com/content/2026-04-15-cdc-warns-new-drug-resistant-virus-poses-major-public-health-threat/",
+        "overlay": {
+          "author": "SARAH CHEN",
+          "title": "CDC warns a new drug-resistant virus could become the next major public health crisis.",
+          "readTime": "4 MIN READ"
+        }
       },
       {
         "image": "article-hero-3.webp",
-        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/"
+        "link": "https://www.iheart.com/content/2026-04-15-gas-station-attendant-praised-for-stopping-alleged-kidnapping/",
+        "overlay": {
+          "author": "MARK ROBINSON",
+          "title": "A gas station attendant is being hailed as a hero for stopping an alleged kidnapping in progress.",
+          "readTime": "3 MIN READ"
+        }
       }
     ],
     "middleColumn": {
@@ -161,21 +191,21 @@
       "articles": [
         {
           "color": "#C6002B",
-          "image": "",
+          "image": "https://picsum.photos/seed/email/160/120",
           "title": "Sending a perfectly-written email? That's so low-end.",
           "meta": "3 MIN READ",
           "link": "https://www.iheart.com/content/2026-04-15-powerball-winner-did-anyone-win-wednesdays-59-million-jackpot/"
         },
         {
           "color": "#0645ff",
-          "image": "",
+          "image": "https://picsum.photos/seed/bigtech/160/120",
           "title": "Big Tech's AI obsession is rattling creators",
           "meta": "5 MIN READ",
           "link": "https://www.iheart.com/content/2026-04-15-billy-crystal-emotionally-recalls-final-conversation-with-rob-reiner/"
         },
         {
           "color": "#90EE90",
-          "image": "",
+          "image": "https://picsum.photos/seed/tacobell/160/120",
           "title": "I asked Taco Bell's CMO what his go-to order is. I wasn't ready for the hot-sauce count.",
           "meta": "3 MIN READ",
           "link": "https://www.iheart.com/content/2026-04-15-anne-hathaway-reveals-how-beyonc-influenced-her-new-role-as-a-pop-star/"
