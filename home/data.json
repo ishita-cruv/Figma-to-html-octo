@@ -19,31 +19,31 @@
   "sidebar": {
     "navigation": [
       { "icon": "../assets/Ellipse 511.png", "label": "{iHeart}", "type": "image", "link": "https://www.iheart.com/iheart" },
-      { "icon": "../assets/Icon.png", "label": "Home", "type": "image", "link": "https://www.iheart.com/home" },
-      { "icon": "../assets/Icon (1).png", "label": "Popular", "type": "image", "link": "https://www.iheart.com/popular" },
-      { "icon": "../assets/Icon (2).png", "label": "Latest", "type": "image", "link": "https://www.iheart.com/latest" },
-      { "icon": "../assets/Icon (3).png", "label": "Explore", "type": "image", "link": "https://www.iheart.com/explore" },
+      { "icon": "../assets/Icon.png", "label": "Home", "type": "image", "link": "https://iheart.begenuin.com/home" },
+      { "icon": "../assets/Icon (1).png", "label": "Popular", "type": "image", "link": "https://iheart.begenuin.com/popular" },
+      { "icon": "../assets/Icon (2).png", "label": "Latest", "type": "image", "link": "https://iheart.begenuin.com/latest" },
+      { "icon": "../assets/Icon (3).png", "label": "Explore", "type": "image", "link": "https://iheart.begenuin.com/explore" },
       { "icon": "more-dots", "label": "More", "type": "svg", "link": "https://www.iheart.com/more" }
     ],
     "user": [],
     "creatorBanner": "Become a Creator for iHeart, get rewards 🚀",
     "categories": [
       { "name": "Rod Ryan Show", "items": [
-        { "label": "The Rod Ryan Show", "avatar": "https://picsum.photos/seed/rodryan/48/48", "link": "https://www.iheart.com/rod-ryan-show" }
+        { "label": "The Rod Ryan Show", "avatar": "https://picsum.photos/seed/rodryan/48/48", "link": "https://iheart.begenuin.com/community/the-rod-ryan-show?feed=1" }
       ]},
       { "name": "Elvis Duran", "items": [
-        { "label": "Elvis Duran and the Morning Show", "avatar": "https://picsum.photos/seed/elvisduran/48/48", "link": "https://www.iheart.com/elvis-duran-morning" },
-        { "label": "Y100 @100.7FM", "avatar": "https://picsum.photos/seed/y100/48/48", "link": "https://www.iheart.com/y100" }
+        { "label": "Elvis Duran and the Morning Show", "avatar": "https://picsum.photos/seed/elvisduran/48/48", "link": "https://iheart.begenuin.com/community/elvis-duran-and-the-morning-show?feed=1" },
+        { "label": "Y100 @100.7FM", "avatar": "https://picsum.photos/seed/y100/48/48", "link": "https://iheart.begenuin.com/community/elvis-duran-and-the-morning-show?feed=1" }
       ]},
       { "name": "Mojo in the Morning", "items": [
-        { "label": "Mojo In The Morning", "avatar": "https://picsum.photos/seed/mojo/48/48", "link": "https://www.iheart.com/mojo-morning" }
+        { "label": "Mojo In The Morning", "avatar": "https://picsum.photos/seed/mojo/48/48", "link": "https://iheart.begenuin.com/community/mojo-in-the-morning?feed=1" }
       ]},
       { "name": "Intern John", "items": [
-        { "label": "Intern John & Your Morning", "avatar": "https://picsum.photos/seed/internjohn/48/48", "link": "https://www.iheart.com/intern-john-morning" },
-        { "label": "HOT 995", "avatar": "https://picsum.photos/seed/hot995/48/48", "link": "https://www.iheart.com/hot-995" }
+        { "label": "Intern John & Your Morning", "avatar": "https://picsum.photos/seed/internjohn/48/48", "link": "https://iheart.begenuin.com/community/intern-john-your-morning-show?feed=1" },
+        { "label": "HOT 995", "avatar": "https://picsum.photos/seed/hot995/48/48", "link": "https://iheart.begenuin.com/community/intern-john-your-morning-show?feed=1" }
       ]},
       { "name": "The Fred Show", "items": [
-        { "label": "The Fred Show On Demand", "avatar": "https://picsum.photos/seed/fredshow/48/48", "link": "https://www.iheart.com/fred-show-on-demand" }
+        { "label": "The Fred Show On Demand", "avatar": "https://picsum.photos/seed/fredshow/48/48", "link": "https://iheart.begenuin.com/community/the-fred-show-on-demand?feed=1" }
       ]}
     ],
     "seeMore": "See more",

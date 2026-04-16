@@ -140,15 +140,9 @@ function renderTitleSection(section) {
 }
 
 function renderFeaturedImage(section) {
-    const adPill = section.adPill ? renderAdPill(section.adPill) : '';
-    const progress = section.videoSeekerProgress || 0;
     return `
         <div style="margin-bottom: 32px; position: relative;">
             <img src="${section.image}" alt="Article featured image" class="article-featured-image">
-            <div class="video-seeker">
-                <div class="seeker-progress" style="width: ${progress}%;"></div>
-            </div>
-            ${adPill}
         </div>
     `;
 }
