@@ -261,11 +261,27 @@ function renderArticleSection(section) {
     `;
 }
 
+let genuinTargets = [];
+
 function renderEmptyWrapper(section) {
+    if (section.genuin) {
+        const id = `gen-sdk-section-${genuinTargets.length}`;
+        genuinTargets.push({ elementId: id, placement: section.genuin });
+        return `<div style="position: relative; width: 100%; aspect-ratio: ${section.aspectRatio}; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px; overflow: hidden;">
+            <div id="${id}" class="gen-sdk-class" data-theme="${section.genuin.theme || 'light'}" style="position: absolute; inset: 0; overflow: hidden;"></div>
+        </div>`;
+    }
     return `<div style="width: 100%; aspect-ratio: ${section.aspectRatio}; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
 }
 
 function renderEmptySpacer(section) {
+    if (section.genuin) {
+        const id = `gen-sdk-section-${genuinTargets.length}`;
+        genuinTargets.push({ elementId: id, placement: section.genuin });
+        return `<div style="position: relative; width: 100%; height: ${section.height}px; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px; overflow: hidden;">
+            <div id="${id}" class="gen-sdk-class" data-theme="${section.genuin.theme || 'light'}" style="position: absolute; inset: 0; overflow: hidden;"></div>
+        </div>`;
+    }
     return `<div style="width: 100%; height: ${section.height}px; border: 1px solid #d0d0d0; border-radius: 8px; margin-bottom: 32px;"></div>`;
 }
 
@@ -289,20 +305,58 @@ function renderSection(section) {
 // Render Article Content
 function renderArticleContent(data) {
     const container = document.getElementById('article-content');
+    genuinTargets = [];
     const breadcrumb = data.breadcrumb ? renderBreadcrumb(data.breadcrumb) : '';
     const heroIdx = data.sections.findIndex(s => s.type === 'featured-image');
     const preSections = heroIdx >= 0 ? data.sections.slice(0, heroIdx) : [];
     const mainSections = heroIdx >= 0 ? data.sections.slice(heroIdx) : data.sections;
     const preHtml = preSections.map(renderSection).join('');
     const mainHtml = mainSections.map(renderSection).join('');
+
+    const sidePlacement = data.genuin && data.genuin.placements && data.genuin.placements.articleSide;
+    let sideContent = '';
+    if (sidePlacement) {
+        genuinTargets.push({ elementId: 'gen-sdk-article-side', placement: sidePlacement });
+        sideContent = `<div id="gen-sdk-article-side" class="gen-sdk-class" data-theme="${sidePlacement.theme || 'light'}"></div>`;
+    }
+
     container.innerHTML = `
         ${breadcrumb}
         ${preHtml}
         <div class="article-layout">
             <div class="article-main">${mainHtml}</div>
-            <aside class="article-side"></aside>
+            <aside class="article-side">${sideContent}</aside>
         </div>
     `;
+}
+
+function initGenuinSdk(config, targets) {
+    const valid = targets.filter(t => document.getElementById(t.elementId));
+    if (!valid.length) return;
+
+    const run = () => {
+        if (typeof genuin === 'undefined' || !genuin.init) return;
+        valid.forEach(({ placement, elementId }) => {
+            genuin.init({
+                style_id: placement.style_id,
+                placement_id: placement.placement_id,
+                api_key: placement.api_key,
+                container_id: elementId,
+            });
+        });
+    };
+
+    if (typeof genuin !== 'undefined' && genuin.init) {
+        run();
+        return;
+    }
+
+    const scriptEl = document.getElementById('genuin-sdk-script');
+    if (!scriptEl) return;
+    scriptEl.addEventListener('load', run, { once: true });
+    if (!scriptEl.src) {
+        scriptEl.src = config.sdkScript;
+    }
 }
 
 function setupCollapsibleSections() {
@@ -387,11 +441,87 @@ function setupSidebarToggle() {
     });
 }
 
+function getSlugFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('slug');
+}
+
+function formatArticleDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const month = d.toLocaleString('en-US', { month: 'short' });
+    const day = d.getDate();
+    const year = d.getFullYear();
+    let hours = d.getHours();
+    const minutes = d.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${month} ${day}, ${year}, ${hours}:${minutes} ${ampm} ET`;
+}
+
+function splitBodyIntoChunks(body, chunkCount) {
+    const paragraphs = (body || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+    if (!paragraphs.length || chunkCount < 1) return [];
+    const chunks = Array.from({ length: chunkCount }, () => []);
+    const perChunk = Math.max(1, Math.ceil(paragraphs.length / chunkCount));
+    paragraphs.forEach((p, i) => {
+        const idx = Math.min(chunkCount - 1, Math.floor(i / perChunk));
+        chunks[idx].push(p);
+    });
+    return chunks;
+}
+
+// Populate the template sections with scraped article content, preserving brand cards,
+// empty-wrappers, empty-spacers, navigation, and SDK credentials.
+function applyScrapedToTemplate(templateSections, article) {
+    const articleSectionIndexes = [];
+    templateSections.forEach((s, i) => { if (s.type === 'article-section') articleSectionIndexes.push(i); });
+    const chunks = splitBodyIntoChunks(article.body, articleSectionIndexes.length);
+    const formattedDate = formatArticleDate(article.datePublished);
+
+    return templateSections.map((section, idx) => {
+        if (section.type === 'title') {
+            return { ...section, text: article.title || section.text };
+        }
+        if (section.type === 'featured-image' && article.image) {
+            return { ...section, image: article.image };
+        }
+        if (section.type === 'article-section') {
+            const chunkIdx = articleSectionIndexes.indexOf(idx);
+            const chunk = chunks[chunkIdx] || [];
+            const lastFaded = (section.paragraphs || []).slice(-1)[0]?.faded === true;
+            const paragraphs = chunk.map((text, i) => ({
+                text,
+                faded: lastFaded && i === chunk.length - 1,
+            }));
+            const next = { ...section, paragraphs: paragraphs.length ? paragraphs : section.paragraphs };
+            if (section.date && formattedDate) next.date = formattedDate;
+            return next;
+        }
+        return section;
+    });
+}
+
 // Main Render Function
 async function renderPage() {
     try {
-        const response = await fetch('article-data.json');
-        const data = await response.json();
+        const slug = getSlugFromUrl();
+        const [tplRes, scrapedRes] = await Promise.all([
+            fetch('article-data.json'),
+            fetch('../scraped/articles.json').catch(() => null),
+        ]);
+        const data = await tplRes.json();
+        const scraped = scrapedRes && scrapedRes.ok ? await scrapedRes.json() : null;
+
+        if (scraped && slug) {
+            const match = (scraped.articles || []).find(a => a.slug === slug && !a.error);
+            if (match) {
+                data.sections = applyScrapedToTemplate(data.sections, match);
+                data.breadcrumb = `Home / ${match.title || ''}`;
+                data.pageTitle = `${match.title || 'Article'} - iHeartVIP`;
+            }
+        }
 
         if (data.pageTitle) document.title = data.pageTitle;
         renderHeader(data.header);
@@ -401,6 +531,10 @@ async function renderPage() {
         setupCollapsibleSections();
         setupMobileMenu();
         setupMobileSearch();
+
+        if (data.genuin) {
+            initGenuinSdk(data.genuin, genuinTargets);
+        }
     } catch (err) {
         console.error('Error loading article data:', err);
     }

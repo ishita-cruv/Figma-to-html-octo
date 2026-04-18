@@ -481,12 +481,28 @@
             padding: 24px;
         }
 
+        .featured-container {
+            align-items: stretch;
+        }
+
         .featured-left {
             flex: 1;
+            min-width: 0;
+            position: relative;
+            overflow: hidden;
         }
 
         .featured-right {
             flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #gen-sdk {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
         }
 
         /* Greeting Section */
@@ -1082,5 +1098,6 @@
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
     <script src="app.js"></script>
+    <script id="genuin-sdk-script"></script>
 </body>
 </html>

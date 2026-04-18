@@ -569,6 +569,13 @@
             position: sticky;
             top: 10px;
             align-self: flex-start;
+            overflow: hidden;
+        }
+
+        .article-side .gen-sdk-class {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
         }
 
         @media (max-width: 1024px) {
@@ -1533,5 +1540,6 @@
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
     <script src="article.js"></script>
+    <script id="genuin-sdk-script"></script>
 </body>
 </html>

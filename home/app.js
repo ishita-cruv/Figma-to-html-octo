@@ -146,7 +146,7 @@ function renderSidebar(data) {
 }
 
 // Render Featured Container (Greeting + Exclusive)
-function renderFeaturedContainer(greeting, exclusive) {
+function renderFeaturedContainer(greeting, exclusive, genuin) {
     const articlesPerPage = 2;
     const totalPages = Math.ceil(exclusive.articles.length / articlesPerPage);
 
@@ -156,12 +156,16 @@ function renderFeaturedContainer(greeting, exclusive) {
 
     const firstPageArticles = exclusive.articles.slice(0, articlesPerPage);
 
+    const featuredPlacement = genuin && genuin.placements && genuin.placements.featured;
+    const featuredLeft = featuredPlacement
+        ? `<div class="featured-left">
+                <div id="gen-sdk" class="gen-sdk-class" data-theme="${featuredPlacement.theme || 'light'}"></div>
+            </div>`
+        : '';
+
     return `
         <div class="featured-container">
-            <div class="featured-left">
-                <section class="greeting"></section>
-                <div class="carousel"></div>
-            </div>
+            ${featuredLeft}
 
             <div class="featured-right">
                 <section class="exclusive-section">
@@ -236,10 +240,17 @@ function setupExclusiveCarousel(articles) {
 }
 
 // Render Prompt Section with Video
-function renderPromptVideo(data) {
+function renderPromptVideo(data, genuin) {
     const dotsHtml = data.items.map((_, idx) => `
         <div class="promptvideo-dot" data-index="${idx}" style="width: 3px; height: 3px; background-color: ${idx === 0 ? '#999' : '#ddd'}; border-radius: 50%;"></div>
     `).join('');
+
+    const promptPlacement = genuin && genuin.placements && genuin.placements.promptVideo;
+    const rightColInner = promptPlacement
+        ? `<div style="flex: 1; position: relative; overflow: hidden; border-radius: 8px; border: 1px solid #e5e5e5;">
+                <div id="gen-sdk-promptvideo" class="gen-sdk-class" data-theme="${promptPlacement.theme || 'light'}" style="position: absolute; inset: 0; overflow: hidden;"></div>
+            </div>`
+        : `<div style="background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; flex: 1; display: flex; align-items: center; justify-content: center; position: relative;"></div>`;
 
     return `
         <section class="content-section promptvideo-section" style="height: 733.11px;">
@@ -268,8 +279,7 @@ function renderPromptVideo(data) {
                     </div>
                 </div>
                 <div class="promptvideo-col" style="flex: 39; min-width: 0; display: flex; flex-direction: column; height: 100%;">
-                    <div style="background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
-                    </div>
+                    ${rightColInner}
                 </div>
             </div>
         </section>
@@ -480,11 +490,95 @@ function renderLastSection(data) {
     `;
 }
 
+function computeReadTime(body) {
+    if (!body) return '3 MIN READ';
+    const words = body.trim().split(/\s+/).length;
+    const minutes = Math.max(1, Math.round(words / 200));
+    return `${minutes} MIN READ`;
+}
+
+function firstSentence(text) {
+    if (!text) return '';
+    const clean = text.replace(/\s+/g, ' ').trim();
+    const m = clean.match(/^[^.!?]+[.!?]/);
+    return (m ? m[0] : clean).trim();
+}
+
+function articleLink(data, scraped) {
+    const base = data.articlePagePath || '../article/article.html';
+    return `${base}?slug=${encodeURIComponent(scraped.slug)}`;
+}
+
+function pickImage(scraped, pool, idx) {
+    if (scraped && scraped.image) return scraped.image;
+    if (pool && pool.length) return pool[idx % pool.length];
+    return `https://picsum.photos/seed/${encodeURIComponent(scraped?.slug || String(idx))}/400/300`;
+}
+
+function populateFromScraped(data, scraped) {
+    const articles = (scraped && Array.isArray(scraped.articles) ? scraped.articles : [])
+        .filter(a => a && a.slug && !a.error);
+    if (!articles.length) return;
+
+    const placeholders = data.placeholders || {};
+    let cursor = 0;
+    const take = n => {
+        const slice = articles.slice(cursor, cursor + n);
+        cursor += n;
+        return slice;
+    };
+
+    data.exclusive = data.exclusive || { badge: 'EXCLUSIVE' };
+    data.exclusive.articles = take(6).map((a, i) => ({
+        title: a.title,
+        meta: 'DAILY READ',
+        image: pickImage(a, placeholders.exclusiveImages, i),
+        link: articleLink(data, a),
+    }));
+
+    data.promptVideo = data.promptVideo || {};
+    data.promptVideo.items = take(3).map((a, i) => ({
+        image: pickImage(a, placeholders.heroImages, i),
+        link: articleLink(data, a),
+        overlay: {
+            author: (a.author || 'IHEART').toUpperCase(),
+            title: firstSentence(a.description || a.body || a.title) || a.title,
+            readTime: computeReadTime(a.body),
+        },
+    }));
+
+    data.lastSection = data.lastSection || {};
+    data.lastSection.items = take(3).map((a, i) => ({
+        image: pickImage(a, placeholders.heroImages, i),
+        link: articleLink(data, a),
+        overlay: {
+            author: (a.author || 'IHEART').toUpperCase(),
+            title: firstSentence(a.description || a.body || a.title) || a.title,
+            readTime: computeReadTime(a.body),
+        },
+    }));
+
+    const colors = placeholders.middleColumnColors || ['#C6002B', '#0645ff', '#90EE90'];
+    data.lastSection.middleColumn = data.lastSection.middleColumn || { header: 'LATEST' };
+    data.lastSection.middleColumn.articles = take(3).map((a, i) => ({
+        color: colors[i % colors.length],
+        image: pickImage(a, placeholders.middleColumnImages, i),
+        title: a.title,
+        meta: computeReadTime(a.body),
+        link: articleLink(data, a),
+    }));
+}
+
 // Main Render Function
 async function renderPage() {
     try {
-        const response = await fetch('data.json');
-        const data = await response.json();
+        const [dataRes, scrapedRes] = await Promise.all([
+            fetch('data.json'),
+            fetch('../scraped/articles.json').catch(() => null),
+        ]);
+        const data = await dataRes.json();
+        const scraped = scrapedRes && scrapedRes.ok ? await scrapedRes.json() : null;
+        populateFromScraped(data, scraped);
 
         if (data.pageTitle) {
             document.title = data.pageTitle;
@@ -498,8 +592,8 @@ async function renderPage() {
 
         const content = document.getElementById('content');
         content.innerHTML = `
-            ${renderFeaturedContainer(data.greeting, data.exclusive)}
-            ${renderPromptVideo(data.promptVideo)}
+            ${renderFeaturedContainer(data.greeting, data.exclusive, data.genuin)}
+            ${renderPromptVideo(data.promptVideo, data.genuin)}
             ${renderBrands(data.brands)}
             ${renderLastSection(data.lastSection)}
         `;
@@ -509,8 +603,46 @@ async function renderPage() {
         setupLastSectionCarousel(data.lastSection.items);
         setupExclusiveCarousel(data.exclusive.articles);
         setupBrandsCarousel(data.brands);
+
+        if (data.genuin) {
+            initGenuinSdk(data.genuin);
+        }
     } catch (error) {
         console.error('Error loading data:', error);
+    }
+}
+
+// Load Genuin SDK and initialize each configured placement
+function initGenuinSdk(config) {
+    const placementTargets = [
+        { placement: config.placements && config.placements.featured, elementId: 'gen-sdk' },
+        { placement: config.placements && config.placements.promptVideo, elementId: 'gen-sdk-promptvideo' },
+    ].filter(entry => entry.placement && document.getElementById(entry.elementId));
+
+    if (!placementTargets.length) return;
+
+    const run = () => {
+        if (typeof genuin === 'undefined' || !genuin.init) return;
+        placementTargets.forEach(({ placement, elementId }) => {
+            genuin.init({
+                style_id: placement.style_id,
+                placement_id: placement.placement_id,
+                api_key: placement.api_key,
+                container_id: elementId,
+            });
+        });
+    };
+
+    if (typeof genuin !== 'undefined' && genuin.init) {
+        run();
+        return;
+    }
+
+    const scriptEl = document.getElementById('genuin-sdk-script');
+    if (!scriptEl) return;
+    scriptEl.addEventListener('load', run, { once: true });
+    if (!scriptEl.src) {
+        scriptEl.src = config.sdkScript;
     }
 }
 
